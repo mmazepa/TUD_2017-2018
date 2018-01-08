@@ -8,7 +8,24 @@ Dane studenta
 
 Dane projektów
 
-| L.P. | Projekt      | Dziedzina | Technologia |
-|------|--------------|-----------|-------------|
-| 1    | 1 (Pierwszy) | Zwierzęta | JDBC        |
-| 2    | 2 (Drugi)    | Zwierzęta | Spring      |
+<table>
+  <tr>
+    <th>L.P.</th>
+    <th>Przedmiot</th>
+    <th>Projekt</th>
+    <th>Dziedzina</th>
+    <th>Technologia</th>
+  </tr>
+  <tr>
+    <td><strong>1</strong></td>
+    <td rowspan="2">Technologie utrwalania danych dla języka Java</td>
+    <td>Pierwszy</td>
+    <td rowspan="2">Zwierzęta</td>
+    <td>JDBC</td>
+  </tr>
+  <tr>
+    <td><strong>2</strong></td>
+    <td>Drugi</td>
+    <td>Spring</td>
+  </tr>
+</table>
