@@ -1,0 +1,26 @@
+
+
+	TRANZAKCJE:
+
+	1) Zaprojektuj i zaimplementuj operacje tranzakcyjne:
+
+		* batch... (batch update, batch insert...)
+			- wszystkie (wstawienia, updaty)
+			się powiodą albo żadne
+
+		* "metoda biznesowa" - kilka czynności na danych
+				np. Dodawanie . UNIQUE
+				    Update    . NOT NULL
+			- wstaw1
+			- wstaw2
+			- usuń
+			- wstaw3
+			- własna reguła biznesowa
+				np. czy pojemność silnika jest poprawna,
+				    czy książka nie ma podejrzanie dużo stron...
+
+
+	2) Testy "pozytywny" i "negatywny" z rollbackiem
+
+		* z gwiazdką na piątkę:
+			- druga tabela i usunięcie rekordu z kluczem obcym

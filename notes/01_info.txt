@@ -1,0 +1,12 @@
+MUST HAVE/NEED TO WORK:
+
+- Apache Maven
+- Java 1.8 (nie instalować Java 1.9, bo czasem nie kompiluje)
+- $ mvn -v (powinna być większa, niż 3)
+- $ javac -version
+- Git
+
+
+"POLECAM (...), ALE PEŁNA DOWOLNOŚĆ":
+
+- ECLIPSE FOR JAVA EE DEVELOPERS (lepiej przystosowana do współpracy z różnymi wtyczkami i z samym nawet Mavenem)

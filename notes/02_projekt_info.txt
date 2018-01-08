@@ -1,0 +1,22 @@
+
+
+
+	PROJEKT 01 INFO:
+
+		1) Dziedzina/tematyka		Zwierzęta, klasy Animal
+		   (3-4 atrybuty
+		   różnych typów)		np. Boolean, Double, String,
+						Date (java.sql.Date vs. java.util.Date)
+
+		2) Github - projekty		TUD_01, O.K.
+
+		3) CRUD - 1 tabela		Add, Delete, Edit, Search...
+		   				findByName, findOlder...
+		   				coś w ten deseń
+
+		Interfejs (Interface) + implementacja JDBC
+					(analog. do wykładu)
+					PreparedStatement - placeholdery
+					... values(?, ?)
+
+		4) Testy !!!

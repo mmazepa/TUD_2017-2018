@@ -1,0 +1,21 @@
+
+
+	15.I - ostatni wykład, COMMITS PUSH!
+
+	1. REPO
+		-> JDBC
+		-> SPRING
+
+	@OneToMany
+	@ManyToOne	<-------|			Bi-directional
+	@ManyToMany		|-- MINIMUM! --|------>	Uni-directional
+	@OneToOne	<-------|
+
+	Lazy Initialization	--- FetchType.EAGER/LAZY
+				--- CascadeType.ALL ...
+
+	Testy!
+	@Transactional
+	CRUD
+
+	np. Person -- (M-M) -- Car -- (1-M) -- Factory

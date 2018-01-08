@@ -1,0 +1,21 @@
+
+	SPRING:
+	-------
+		-> SHDEMO (GitHub) [Spring + Hibernate]
+		-> HIBERNATE
+		-> ORM (Object Relational Mapper)
+
+		-> SESSION (HibernateSession) <-- DOKUMENTACJA metody
+		   -------				- saveOrUpdate
+			^				- get
+	SellingManager	|			domain			CRUD
+	       -------					- ...		----
+						[@Entity]		obowiązkowe
+						[@Id]			obowiązkowe
+						[@GeneratedValue]	opcjonalne
+
+	Zad.
+	----
+		CRUD + testy
+		1 tabela
+		--------
