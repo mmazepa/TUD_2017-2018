@@ -2,11 +2,13 @@ package domain;
 
 public class Animal {
 
+  private String species = "";
 	private String name = "";
   private String gender = "";
 	private int yob = 0;
 
-  public Animal(String name, String gender, int yob) {
+  public Animal(String species, String name, String gender, int yob) {
+    this.species = species;
     this.name = name;
     this.gender = gender;
     this.yob = yob;
@@ -14,6 +16,14 @@ public class Animal {
 
   public Animal(){
 
+  }
+
+  public String getSpecies() {
+    return species;
+  }
+
+  public void setSpecies(String species) {
+    this.species = species;
   }
 
 	public String getName() {

@@ -5,6 +5,7 @@ import java.util.List;
 interface FamilyMemberManagerInterface {
 
   // Method for Testing
+  public String saySpecies(String qualifier);
   public String sayName(String qualifier);
   public String sayGender(String qualifier);
   public int sayYob(String qualifier);
@@ -20,8 +21,9 @@ interface FamilyMemberManagerInterface {
   public void displayFrame(String where);
   public void displayAnimalInfo(String qualifier);
   public String extendWord(String word, int desiredLength);
-  public String prepareFrame(int columnsNumber, List<Integer> lengths);
-  public String makeFrame(int columnsNumber, List<Integer> lengths);
+  public String prepareFrame(int columnsNumber, List<Integer> lengths, String where);
+  public String makeFrame(List<Integer> lengths, String where);
   public String repeatString(String string, int times);
+  public List<Integer> prepareLengthsList();
 
 }

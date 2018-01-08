@@ -10,18 +10,20 @@
 	<context:component-scan base-package="service" />
 
 	<bean id="animal01" class="domain.FamilyMember">
+    <property name="species" value="Lew" />
 		<property name="name" value="Henryk" />
     <property name="gender" value="Male" />
-		<property name="yob" value="1894" />
+		<property name="yob" value="1834" />
     <property name="child">
       <ref bean="animal02"/>
     </property>
 	</bean>
 
   <bean id="animal02" class="domain.FamilyMember">
+    <property name="species" value="Lew" />
     <property name="name" value="Franciszek" />
     <property name="gender" value="Male" />
-    <property name="yob" value="1924" />
+    <property name="yob" value="1864" />
     <property name="parent">
       <ref bean="animal01"/>
     </property>
@@ -31,9 +33,10 @@
   </bean>
 
   <bean id="animal03" class="domain.FamilyMember">
+    <property name="species" value="Lew" />
     <property name="name" value="Michał" />
     <property name="gender" value="Male" />
-    <property name="yob" value="1954" />
+    <property name="yob" value="1894" />
     <property name="parent">
       <ref bean="animal02"/>
     </property>
@@ -43,9 +46,10 @@
   </bean>
 
   <bean id="animal04" class="domain.FamilyMember">
+    <property name="species" value="Lew" />
     <property name="name" value="Karolina" />
     <property name="gender" value="Female" />
-    <property name="yob" value="1984" />
+    <property name="yob" value="1924" />
     <property name="parent">
       <ref bean="animal03"/>
     </property>
@@ -55,11 +59,38 @@
   </bean>
 
   <bean id="animal05" class="domain.FamilyMember">
+    <property name="species" value="Lew" />
     <property name="name" value="Zofia" />
+    <property name="gender" value="Female" />
+    <property name="yob" value="1954" />
+    <property name="parent">
+      <ref bean="animal04"/>
+    </property>
+    <property name="child">
+      <ref bean="animal06"/>
+    </property>
+  </bean>
+
+  <bean id="animal06" class="domain.FamilyMember">
+    <property name="species" value="Lew" />
+    <property name="name" value="Kazimierz" />
+    <property name="gender" value="Male" />
+    <property name="yob" value="1984" />
+    <property name="parent">
+      <ref bean="animal05"/>
+    </property>
+    <property name="child">
+      <ref bean="animal07"/>
+    </property>
+  </bean>
+
+  <bean id="animal07" class="domain.FamilyMember">
+    <property name="species" value="Lew" />
+    <property name="name" value="Genowefa" />
     <property name="gender" value="Female" />
     <property name="yob" value="2014" />
     <property name="parent">
-      <ref bean="animal04"/>
+      <ref bean="animal06"/>
     </property>
   </bean>
 

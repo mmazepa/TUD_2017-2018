@@ -22,7 +22,7 @@ public class FamilyMemberManager implements FamilyMemberManagerInterface {
 
   // Display stuff
   int columnWidth = 10;
-  int columns = 6;
+  int columns = 7;
 
 	@Autowired
   @Qualifier("animal01")
@@ -44,6 +44,26 @@ public class FamilyMemberManager implements FamilyMemberManagerInterface {
   @Qualifier("animal05")
   private FamilyMember animal05;
 
+  @Autowired
+  @Qualifier("animal06")
+  private FamilyMember animal06;
+
+  @Autowired
+  @Qualifier("animal07")
+  private FamilyMember animal07;
+
+  @Override
+	public String saySpecies(String qualifier) {
+    if(qualifier == "animal01") return animal01.getSpecies();
+    if(qualifier == "animal02") return animal02.getSpecies();
+    if(qualifier == "animal03") return animal03.getSpecies();
+    if(qualifier == "animal04") return animal04.getSpecies();
+    if(qualifier == "animal05") return animal05.getSpecies();
+    if(qualifier == "animal06") return animal06.getSpecies();
+    if(qualifier == "animal07") return animal07.getSpecies();
+    return "Animal not found!";
+	}
+
   @Override
 	public String sayName(String qualifier) {
     if(qualifier == "animal01") return animal01.getName();
@@ -51,6 +71,8 @@ public class FamilyMemberManager implements FamilyMemberManagerInterface {
     if(qualifier == "animal03") return animal03.getName();
     if(qualifier == "animal04") return animal04.getName();
     if(qualifier == "animal05") return animal05.getName();
+    if(qualifier == "animal06") return animal06.getName();
+    if(qualifier == "animal07") return animal07.getName();
     return "Animal not found!";
 	}
 
@@ -61,6 +83,8 @@ public class FamilyMemberManager implements FamilyMemberManagerInterface {
     if(qualifier == "animal03") return animal03.getGender();
     if(qualifier == "animal04") return animal04.getGender();
     if(qualifier == "animal05") return animal05.getGender();
+    if(qualifier == "animal06") return animal06.getGender();
+    if(qualifier == "animal07") return animal07.getGender();
     return "Animal not found!";
   }
 
@@ -71,6 +95,8 @@ public class FamilyMemberManager implements FamilyMemberManagerInterface {
     if(qualifier == "animal03") return animal03.getYob();
     if(qualifier == "animal04") return animal04.getYob();
     if(qualifier == "animal05") return animal05.getYob();
+    if(qualifier == "animal06") return animal06.getYob();
+    if(qualifier == "animal07") return animal07.getYob();
     return 0;
   }
 
@@ -81,6 +107,8 @@ public class FamilyMemberManager implements FamilyMemberManagerInterface {
     if(qualifier == "animal03") return hasParent(animal03.getParent().getName());
     if(qualifier == "animal04") return hasParent(animal04.getParent().getName());
     if(qualifier == "animal05") return hasParent(animal05.getParent().getName());
+    if(qualifier == "animal06") return hasParent(animal06.getParent().getName());
+    if(qualifier == "animal07") return hasParent(animal07.getParent().getName());
     return "Animal not found!";
   }
 
@@ -91,6 +119,8 @@ public class FamilyMemberManager implements FamilyMemberManagerInterface {
     if(qualifier == "animal03") return hasChild(animal03.getChild().getName());
     if(qualifier == "animal04") return hasChild(animal04.getChild().getName());
     if(qualifier == "animal05") return hasChild(animal05.getChild().getName());
+    if(qualifier == "animal06") return hasChild(animal06.getChild().getName());
+    if(qualifier == "animal07") return hasChild(animal07.getChild().getName());
     return "Animal not found!";
   }
 
@@ -121,38 +151,32 @@ public class FamilyMemberManager implements FamilyMemberManagerInterface {
 
   @Override
   public void displayFrame(String where) {
-    if (where.equals("open")) {
-      displayFrame("close");
-      String headerInfo = colorizeText("   | ", "red", false)
-        + "No."
-        + colorizeText(" | ", "red", false)
-        + extendWord("NAME", columnWidth)
-        + colorizeText(" | ", "red", false)
-        + extendWord("GENDER", columnWidth)
-        + colorizeText(" | ", "red", false)
-        + extendWord("YOB", 4)
-        + colorizeText(" | ", "red", false)
-        + extendWord("PARENT", columnWidth)
-        + colorizeText(" | ", "red", false)
-        + extendWord("CHILD", columnWidth)
-        + colorizeText(" |", "red", false);
+    List<Integer> lengths = new ArrayList<Integer>();
+    lengths = prepareLengthsList();
+    if (where.equals("top")) {
+      System.out.println("   " + makeFrame(lengths, where));
+      String headerInfo = colorizeText("   ║ ", "red", false)
+        + colorizeText("No.", "blue", true)
+        + colorizeText(" ║ ", "red", false)
+        + colorizeText(extendWord("SPECIES", columnWidth), "blue", true)
+        + colorizeText(" ║ ", "red", false)
+        + colorizeText(extendWord("NAME", columnWidth), "blue", true)
+        + colorizeText(" ║ ", "red", false)
+        + colorizeText(extendWord("GENDER", 6), "blue", true)
+        + colorizeText(" ║ ", "red", false)
+        + colorizeText(extendWord("YOB", 4), "blue", true)
+        + colorizeText(" ║ ", "red", false)
+        + colorizeText(extendWord("PARENT", columnWidth), "blue", true)
+        + colorizeText(" ║ ", "red", false)
+        + colorizeText(extendWord("CHILD", columnWidth), "blue", true)
+        + colorizeText(" ║", "red", false);
       System.out.println(headerInfo);
     }
     else if (where.equals("middle")) {
-      List<Integer> lengths = new ArrayList<Integer>();
-      lengths.add(3);
-      lengths.add(columnWidth);
-      lengths.add(columnWidth);
-      lengths.add(4);
-      lengths.add(columnWidth);
-      lengths.add(columnWidth);
-      System.out.println("   " + makeFrame(columns, lengths));
+      System.out.println("   " + makeFrame(lengths, where));
     }
-    else if (where.equals("close")) {
-      List<Integer> lengths = new ArrayList<Integer>();
-      int sum = 3 + columnWidth + columnWidth + 4 + columnWidth + columnWidth + columns*3 - 3;
-      lengths.add(sum);
-      System.out.println("   " + makeFrame(1, lengths));
+    else if (where.equals("bottom")) {
+      System.out.println("   " + makeFrame(lengths, where));
     }
     else System.out.println("   Command not found!");
   }
@@ -165,27 +189,30 @@ public class FamilyMemberManager implements FamilyMemberManagerInterface {
     Animal child = new Animal();
     String no = extendWord(qualifier.substring(qualifier.length() - 2), 3);
 
+    animal.setSpecies(extendWord(saySpecies(qualifier), columnWidth));
     animal.setName(extendWord(sayName(qualifier), columnWidth));
-    animal.setGender(extendWord(sayGender(qualifier), columnWidth));
+    animal.setGender(extendWord(sayGender(qualifier), 6));
     animal.setYob(sayYob(qualifier));
     parent.setName(extendWord(sayParent(qualifier), columnWidth));
     animal.setParent(parent);
     child.setName(extendWord(sayChild(qualifier), columnWidth));
     animal.setChild(child);
 
-    String animalInfo = colorizeText("   | ", "red", false)
-      + no
-      + colorizeText(" | ", "red", false)
+    String animalInfo = colorizeText("   ║ ", "red", false)
+      + colorizeText(no, "white", false)
+      + colorizeText(" ║ ", "red", false)
+      + animal.getSpecies()
+      + colorizeText(" ║ ", "red", false)
       + animal.getName()
-      + colorizeText(" | ", "red", false)
+      + colorizeText(" ║ ", "red", false)
       + animal.getGender()
-      + colorizeText(" | ", "red", false)
+      + colorizeText(" ║ ", "red", false)
       + animal.getYob()
-      + colorizeText(" | ", "red", false)
+      + colorizeText(" ║ ", "red", false)
       + animal.getParent().getName()
-      + colorizeText(" | ", "red", false)
+      + colorizeText(" ║ ", "red", false)
       + animal.getChild().getName()
-      + colorizeText(" |", "red", false);
+      + colorizeText(" ║", "red", false);
 
     displayFrame("middle");
     System.out.println(animalInfo);
@@ -202,21 +229,49 @@ public class FamilyMemberManager implements FamilyMemberManagerInterface {
   }
 
   @Override
-  public String prepareFrame(int columnsNumber, List<Integer> lengths) {
+  public String prepareFrame(int columnsNumber, List<Integer> lengths, String where) {
     String finishedFrame = new String();
     if(columnsNumber > 0) {
-        finishedFrame = finishedFrame + colorizeText("+", "red", false);
-        finishedFrame = finishedFrame + colorizeText(repeatString("-", lengths.get(0) + 2), "red", false);
+        finishedFrame = finishedFrame + colorizeText(repeatString("═", lengths.get(0) + 2), "red", false);
+
+        if (columnsNumber > 1) {
+          if (where.equals("top"))
+            finishedFrame = finishedFrame + colorizeText("╦", "red", false);
+          else if (where.equals("middle"))
+            finishedFrame = finishedFrame + colorizeText("╬", "red", false);
+          else if (where.equals("bottom"))
+            finishedFrame = finishedFrame + colorizeText("╩", "red", false);
+          else System.out.println("Command not fount!");
+        }
+
         lengths.remove(0);
-        finishedFrame = finishedFrame + prepareFrame(columnsNumber-1, lengths);
+        finishedFrame = finishedFrame + prepareFrame(columnsNumber-1, lengths, where);
     }
     return finishedFrame;
   }
 
   @Override
-  public String makeFrame(int columnsNumber, List<Integer> lengths) {
-    String finishedFrame = prepareFrame(columnsNumber, lengths);
-    finishedFrame = finishedFrame + colorizeText("+", "red", false);
+  public String makeFrame(List<Integer> lengths, String where) {
+    String finishedFrame = new String();
+    if(columns > 0) {
+      if (where.equals("top"))
+        finishedFrame = colorizeText("╔", "red", false);
+      else if (where.equals("middle"))
+        finishedFrame = colorizeText("╠", "red", false);
+      else if (where.equals("bottom"))
+        finishedFrame = colorizeText("╚", "red", false);
+      else System.out.println("Command not found!");
+
+      finishedFrame = finishedFrame + prepareFrame(columns, lengths, where);
+
+      if (where.equals("top"))
+        finishedFrame = finishedFrame + colorizeText("╗", "red", false);
+      else if (where.equals("middle"))
+        finishedFrame = finishedFrame + colorizeText("╣", "red", false);
+      else if (where.equals("bottom"))
+        finishedFrame = finishedFrame + colorizeText("╝", "red", false);
+      else System.out.println("Command not found!");
+    }
     return finishedFrame;
   }
 
@@ -225,6 +280,19 @@ public class FamilyMemberManager implements FamilyMemberManagerInterface {
     String repeated = new String();
     for (int i = 0; i < times; i++) repeated = repeated + string;
     return repeated;
+  }
+
+  @Override
+  public List<Integer> prepareLengthsList() {
+    List<Integer> lengths = new ArrayList<Integer>();
+    lengths.add(3);
+    lengths.add(columnWidth);
+    lengths.add(columnWidth);
+    lengths.add(6);
+    lengths.add(4);
+    lengths.add(columnWidth);
+    lengths.add(columnWidth);
+    return lengths;
   }
 
 }
