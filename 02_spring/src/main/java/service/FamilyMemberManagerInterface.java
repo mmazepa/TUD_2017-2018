@@ -13,6 +13,6 @@ interface FamilyMemberManagerInterface {
   public String hasParent(String parentName);
   public String hasChild(String childName);
   public String colorizeText(String textToColorize, String colorName, Boolean isBold);
-  public void displayPersonInfo(String qualifier);
+  public void displayAnimalInfo(String qualifier);
 
 }

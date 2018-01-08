@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import domain.Person;
+import domain.Animal;
 import domain.FamilyMember;
 
 @Component
@@ -18,73 +18,73 @@ public class FamilyMemberManager implements FamilyMemberManagerInterface {
   public static final String ANSI_BOLD  = "\u001B[1m";
 
 	@Autowired
-  @Qualifier("person01")
-	private FamilyMember person01;
+  @Qualifier("animal01")
+	private FamilyMember animal01;
 
   @Autowired
-  @Qualifier("person02")
-  private FamilyMember person02;
+  @Qualifier("animal02")
+  private FamilyMember animal02;
 
   @Autowired
-  @Qualifier("person03")
-  private FamilyMember person03;
+  @Qualifier("animal03")
+  private FamilyMember animal03;
 
   @Autowired
-  @Qualifier("person04")
-  private FamilyMember person04;
+  @Qualifier("animal04")
+  private FamilyMember animal04;
 
   @Autowired
-  @Qualifier("person05")
-  private FamilyMember person05;
+  @Qualifier("animal05")
+  private FamilyMember animal05;
 
   @Override
 	public String sayName(String qualifier) {
-    if(qualifier == "person01") return "I'm " + person01.getFirstName() + "!";
-    if(qualifier == "person02") return "I'm " + person02.getFirstName() + "!";
-    if(qualifier == "person03") return "I'm " + person03.getFirstName() + "!";
-    if(qualifier == "person04") return "I'm " + person04.getFirstName() + "!";
-    if(qualifier == "person05") return "I'm " + person05.getFirstName() + "!";
-    return "Person not found!";
+    if(qualifier == "animal01") return "I'm " + animal01.getName() + "!";
+    if(qualifier == "animal02") return "I'm " + animal02.getName() + "!";
+    if(qualifier == "animal03") return "I'm " + animal03.getName() + "!";
+    if(qualifier == "animal04") return "I'm " + animal04.getName() + "!";
+    if(qualifier == "animal05") return "I'm " + animal05.getName() + "!";
+    return "Animal not found!";
 	}
 
   @Override
   public String sayGender(String qualifier){
-    if(qualifier == "person01") return "I'm " + person01.getGender() + "!";
-    if(qualifier == "person02") return "I'm " + person02.getGender() + "!";
-    if(qualifier == "person03") return "I'm " + person03.getGender() + "!";
-    if(qualifier == "person04") return "I'm " + person04.getGender() + "!";
-    if(qualifier == "person05") return "I'm " + person05.getGender() + "!";
-    return "Person not found!";
+    if(qualifier == "animal01") return "I'm " + animal01.getGender() + "!";
+    if(qualifier == "animal02") return "I'm " + animal02.getGender() + "!";
+    if(qualifier == "animal03") return "I'm " + animal03.getGender() + "!";
+    if(qualifier == "animal04") return "I'm " + animal04.getGender() + "!";
+    if(qualifier == "animal05") return "I'm " + animal05.getGender() + "!";
+    return "Animal not found!";
   }
 
   @Override
   public String sayYob(String qualifier) {
-    if(qualifier == "person01") return "I was born in " + person01.getYob() + "!";
-    if(qualifier == "person02") return "I was born in " + person02.getYob() + "!";
-    if(qualifier == "person03") return "I was born in " + person03.getYob() + "!";
-    if(qualifier == "person04") return "I was born in " + person04.getYob() + "!";
-    if(qualifier == "person05") return "I was born in " + person05.getYob() + "!";
-    return "Person not found!";
+    if(qualifier == "animal01") return "I was born in " + animal01.getYob() + "!";
+    if(qualifier == "animal02") return "I was born in " + animal02.getYob() + "!";
+    if(qualifier == "animal03") return "I was born in " + animal03.getYob() + "!";
+    if(qualifier == "animal04") return "I was born in " + animal04.getYob() + "!";
+    if(qualifier == "animal05") return "I was born in " + animal05.getYob() + "!";
+    return "Animal not found!";
   }
 
   @Override
   public String sayParent(String qualifier) {
-    if(qualifier == "person01") return hasParent(person01.getParent().getFirstName());
-    if(qualifier == "person02") return hasParent(person02.getParent().getFirstName());
-    if(qualifier == "person03") return hasParent(person03.getParent().getFirstName());
-    if(qualifier == "person04") return hasParent(person04.getParent().getFirstName());
-    if(qualifier == "person05") return hasParent(person05.getParent().getFirstName());
-    return "Person not found!";
+    if(qualifier == "animal01") return hasParent(animal01.getParent().getName());
+    if(qualifier == "animal02") return hasParent(animal02.getParent().getName());
+    if(qualifier == "animal03") return hasParent(animal03.getParent().getName());
+    if(qualifier == "animal04") return hasParent(animal04.getParent().getName());
+    if(qualifier == "animal05") return hasParent(animal05.getParent().getName());
+    return "Animal not found!";
   }
 
   @Override
   public String sayChild(String qualifier) {
-    if(qualifier == "person01") return hasChild(person01.getChild().getFirstName());
-    if(qualifier == "person02") return hasChild(person02.getChild().getFirstName());
-    if(qualifier == "person03") return hasChild(person03.getChild().getFirstName());
-    if(qualifier == "person04") return hasChild(person04.getChild().getFirstName());
-    if(qualifier == "person05") return hasChild(person05.getChild().getFirstName());
-    return "Person not found!";
+    if(qualifier == "animal01") return hasChild(animal01.getChild().getName());
+    if(qualifier == "animal02") return hasChild(animal02.getChild().getName());
+    if(qualifier == "animal03") return hasChild(animal03.getChild().getName());
+    if(qualifier == "animal04") return hasChild(animal04.getChild().getName());
+    if(qualifier == "animal05") return hasChild(animal05.getChild().getName());
+    return "Animal not found!";
   }
 
   @Override
@@ -113,7 +113,7 @@ public class FamilyMemberManager implements FamilyMemberManagerInterface {
   }
 
   @Override
-  public void displayPersonInfo(String qualifier) {
+  public void displayAnimalInfo(String qualifier) {
     System.out.println("   " + colorizeText("+--------------------------------------------", "red", false));
     // SAY NAME
     System.out.println("      " + colorizeText("|", "red", false) + " "

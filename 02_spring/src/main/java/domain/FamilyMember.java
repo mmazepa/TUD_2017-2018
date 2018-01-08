@@ -1,27 +1,27 @@
 package domain;
 
-public class FamilyMember extends Person {
+public class FamilyMember extends Animal {
 
-  private Person parent = new Person();
-  private Person child = new Person();
+  private Animal parent = new Animal();
+  private Animal child = new Animal();
 
   public FamilyMember() {
 
   }
 
-  public void setParent(Person parent) {
+  public void setParent(Animal parent) {
     this.parent = parent;
   }
 
-  public Person getParent() {
+  public Animal getParent() {
     return parent;
   }
 
-  public void setChild(Person child) {
+  public void setChild(Animal child) {
     this.child = child;
   }
 
-  public Person getChild() {
+  public Animal getChild() {
     return child;
   }
 

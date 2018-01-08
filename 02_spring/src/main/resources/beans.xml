@@ -9,57 +9,57 @@
 		configure as beans -->
 	<context:component-scan base-package="service" />
 
-	<bean id="person01" class="domain.FamilyMember">
-		<property name="firstName" value="Henryk" />
+	<bean id="animal01" class="domain.FamilyMember">
+		<property name="name" value="Henryk" />
     <property name="gender" value="Male" />
 		<property name="yob" value="1894" />
     <property name="child">
-      <ref bean="person02"/>
+      <ref bean="animal02"/>
     </property>
 	</bean>
 
-  <bean id="person02" class="domain.FamilyMember">
-    <property name="firstName" value="Franciszek" />
+  <bean id="animal02" class="domain.FamilyMember">
+    <property name="name" value="Franciszek" />
     <property name="gender" value="Male" />
     <property name="yob" value="1924" />
     <property name="parent">
-      <ref bean="person01"/>
+      <ref bean="animal01"/>
     </property>
     <property name="child">
-      <ref bean="person03"/>
+      <ref bean="animal03"/>
     </property>
   </bean>
 
-  <bean id="person03" class="domain.FamilyMember">
-    <property name="firstName" value="Michał" />
+  <bean id="animal03" class="domain.FamilyMember">
+    <property name="name" value="Michał" />
     <property name="gender" value="Male" />
     <property name="yob" value="1954" />
     <property name="parent">
-      <ref bean="person02"/>
+      <ref bean="animal02"/>
     </property>
     <property name="child">
-      <ref bean="person04"/>
+      <ref bean="animal04"/>
     </property>
   </bean>
 
-  <bean id="person04" class="domain.FamilyMember">
-    <property name="firstName" value="Karolina" />
+  <bean id="animal04" class="domain.FamilyMember">
+    <property name="name" value="Karolina" />
     <property name="gender" value="Female" />
     <property name="yob" value="1984" />
     <property name="parent">
-      <ref bean="person03"/>
+      <ref bean="animal03"/>
     </property>
     <property name="child">
-      <ref bean="person05"/>
+      <ref bean="animal05"/>
     </property>
   </bean>
 
-  <bean id="person05" class="domain.FamilyMember">
-    <property name="firstName" value="Zofia" />
+  <bean id="animal05" class="domain.FamilyMember">
+    <property name="name" value="Zofia" />
     <property name="gender" value="Female" />
     <property name="yob" value="2014" />
     <property name="parent">
-      <ref bean="person04"/>
+      <ref bean="animal04"/>
     </property>
   </bean>
 

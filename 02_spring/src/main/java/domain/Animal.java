@@ -1,27 +1,27 @@
 package domain;
 
-public class Person {
+public class Animal {
 
-	private String firstName = "";
+	private String name = "";
   private String gender = "";
 	private int yob = 0;
 
-  public Person(String firstName, String gender, int yob) {
-    this.firstName = firstName;
+  public Animal(String name, String gender, int yob) {
+    this.name = name;
     this.gender = gender;
     this.yob = yob;
   }
 
-  public Person(){
+  public Animal(){
 
   }
 
-	public String getFirstName() {
-		return firstName;
+	public String getName() {
+		return name;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
   public String getGender() {
