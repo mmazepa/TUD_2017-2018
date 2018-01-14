@@ -33,6 +33,14 @@ public class SellingMangerHibernateImpl implements SellingManagerInterface {
 		sessionFactory.getCurrentSession().persist(zoo);
 	}
 
+  @Override
+  public void updateZoo(Zoo oldZoo, Zoo newZoo) {
+    oldZoo = (Zoo) sessionFactory.getCurrentSession().get(Zoo.class, oldZoo.getId());
+    oldZoo.setName(newZoo.getName());
+    oldZoo.setOwner(newZoo.getOwner());
+    sessionFactory.getCurrentSession().update(oldZoo);
+  }
+
 	@Override
 	public void deleteZoo(Zoo zoo) {
 		zoo = (Zoo) sessionFactory.getCurrentSession().get(Zoo.class, zoo.getId());
@@ -71,6 +79,16 @@ public class SellingMangerHibernateImpl implements SellingManagerInterface {
 		animal.setId(null);
 		return (Long) sessionFactory.getCurrentSession().save(animal);
 	}
+
+  @Override
+  public void updateAnimal(Animal oldAnimal, Animal newAnimal) {
+    oldAnimal = (Animal) sessionFactory.getCurrentSession().get(Animal.class, oldAnimal.getId());
+    oldAnimal.setSpecies(newAnimal.getSpecies());
+    oldAnimal.setName(newAnimal.getName());
+    oldAnimal.setSold(newAnimal.getSold());
+    oldAnimal.setBreeder(newAnimal.getBreeder());
+    sessionFactory.getCurrentSession().update(oldAnimal);
+  }
 
 	@Override
 	public void sellAnimal(Long zooId, Long animalId) {
@@ -123,20 +141,26 @@ public class SellingMangerHibernateImpl implements SellingManagerInterface {
   }
 
   @Override
+  public void updateBreeder(Breeder oldBreeder, Breeder newBreeder) {
+    oldBreeder = (Breeder) sessionFactory.getCurrentSession().get(Breeder.class, oldBreeder.getId());
+    oldBreeder.setFirstName(newBreeder.getFirstName());
+    oldBreeder.setBreedingSpecies(newBreeder.getBreedingSpecies());
+    sessionFactory.getCurrentSession().update(oldBreeder);
+  }
+
+  @Override
 	public void deleteBreeder(Breeder breeder) {
 
 		breeder = (Breeder) sessionFactory.getCurrentSession().get(Breeder.class, breeder.getId());
 
-		Breeder toRemove = null;
     List<Animal> animals = sessionFactory.getCurrentSession().getNamedQuery("animal.all").list();
-		for (Animal anAnimal : animals)
+		for (Animal anAnimal : animals) {
 			if (anAnimal.getBreeder().getId().compareTo(breeder.getId()) == 0) {
-				toRemove = breeder;
         anAnimal.setBreeder(null);
         sessionFactory.getCurrentSession().update(anAnimal);
-        sessionFactory.getCurrentSession().delete(breeder);
-				break;
 			}
+    }
+    sessionFactory.getCurrentSession().delete(breeder);
 	}
 
   @Override
