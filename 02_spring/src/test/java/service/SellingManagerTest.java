@@ -13,6 +13,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import domain.Animal;
+import domain.Breeder;
 import domain.Zoo;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -41,6 +42,15 @@ public class SellingManagerTest {
 
   private final String ANIMAL_SPECIES_3 = "Krokodyl";
   private final String ANIMAL_NAME_3 = "Ryszard";
+
+  private final String BREEDER_FIRSTNAME_1 = "Bronisław";
+  private final String BREEDER_BREEDINGSPECIES_1 = "Słoń";
+
+  private final String BREEDER_FIRSTNAME_2 = "Mieczysław";
+  private final String BREEDER_BREEDINGSPECIES_2 = "Lew";
+
+  private final String BREEDER_FIRSTNAME_3 = "Tadeusz";
+  private final String BREEDER_BREEDINGSPECIES_3 = "Krokodyl";
 
 	@Test
 	public void addZooCheck() {
@@ -82,6 +92,24 @@ public class SellingManagerTest {
 		Animal retrievedAnimal = sellingManager.findAnimalById(animalId);
 		assertEquals(ANIMAL_SPECIES_1, retrievedAnimal.getSpecies());
 		assertEquals(ANIMAL_NAME_1, retrievedAnimal.getName());
+		// ... check other properties here
+
+	}
+
+  @Test
+	public void addBreederCheck() {
+
+		Breeder breeder = new Breeder();
+		breeder.setFirstName(BREEDER_FIRSTNAME_1);
+		breeder.setBreedingSpecies(BREEDER_BREEDINGSPECIES_1);
+		// ... other properties here
+
+		sellingManager.addBreeder(breeder);
+
+		Breeder retrievedBreeder = sellingManager.findBreederByBreedingSpecies(BREEDER_BREEDINGSPECIES_1);
+
+		assertEquals(BREEDER_FIRSTNAME_1, retrievedBreeder.getFirstName());
+		assertEquals(BREEDER_BREEDINGSPECIES_1, retrievedBreeder.getBreedingSpecies());
 		// ... check other properties here
 
 	}

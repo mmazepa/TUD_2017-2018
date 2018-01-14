@@ -9,6 +9,7 @@ import javax.persistence.NamedQuery;
 
 @Entity
 @NamedQueries({
+    @NamedQuery(name = "breeder.all", query = "Select b from Breeder b"),
     @NamedQuery(name = "breeder.bySpecies", query = "Select b from Breeder b where b.breedingSpecies = :breedingSpecies")
 })
 public class Breeder {
@@ -22,7 +23,6 @@ public class Breeder {
 	public Long getId() {
 		return id;
 	}
-
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -30,7 +30,6 @@ public class Breeder {
   public String getFirstName() {
 		return firstName;
 	}
-
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
@@ -38,7 +37,6 @@ public class Breeder {
 	public String getBreedingSpecies() {
 		return breedingSpecies;
 	}
-
 	public void setBreedingSpecies(String breedingSpecies) {
 		this.breedingSpecies = breedingSpecies;
 	}

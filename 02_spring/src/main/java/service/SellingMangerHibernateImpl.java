@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import domain.Animal;
+import domain.Breeder;
 import domain.Zoo;
 
 @Component
@@ -108,5 +109,49 @@ public class SellingMangerHibernateImpl implements SellingManagerInterface {
 	public Animal findAnimalById(Long id) {
 		return (Animal) sessionFactory.getCurrentSession().get(Animal.class, id);
 	}
+
+  @Override
+  public void addBreeder(Breeder breeder) {
+    breeder.setId(null);
+    sessionFactory.getCurrentSession().persist(breeder);
+  }
+
+  @Override
+	@SuppressWarnings("unchecked")
+  public List<Breeder> getAllBreeders() {
+		return sessionFactory.getCurrentSession().getNamedQuery("breeder.all").list();
+  }
+
+  @Override
+	public void deleteBreeder(Breeder breeder) {
+
+		breeder = (Breeder) sessionFactory.getCurrentSession().get(Breeder.class, breeder.getId());
+
+		Breeder toRemove = null;
+    List<Animal> animals = sessionFactory.getCurrentSession().getNamedQuery("animal.all").list();
+		for (Animal anAnimal : animals)
+			if (anAnimal.getBreeder().getId().compareTo(breeder.getId()) == 0) {
+				toRemove = breeder;
+        anAnimal.setBreeder(null);
+        sessionFactory.getCurrentSession().update(anAnimal);
+        sessionFactory.getCurrentSession().delete(breeder);
+				break;
+			}
+	}
+
+  @Override
+  public Breeder findBreederById(Long id) {
+    return (Breeder) sessionFactory.getCurrentSession().get(Breeder.class, id);
+  }
+
+  @Override
+  public Breeder findBreederByBreedingSpecies(String breedingSpecies) {
+    return (Breeder) sessionFactory.getCurrentSession().getNamedQuery("breeder.bySpecies").setString("breedingSpecies", breedingSpecies).uniqueResult();
+  }
+
+  @Override
+  public Animal findAnimalByBreeder(Breeder breeder) {
+    return (Animal) sessionFactory.getCurrentSession().getNamedQuery("animal.byBreeder").setLong("breeder", breeder.getId()).uniqueResult();
+  }
 
 }
