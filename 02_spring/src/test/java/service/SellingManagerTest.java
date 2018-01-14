@@ -123,7 +123,15 @@ public class SellingManagerTest {
     animal.setSpecies(ANIMAL_SPECIES_3);
     animal.setName(ANIMAL_NAME_3);
 
-    //sellAnimal(zoo.getId(), animal.getId());
+    sellingManager.addZoo(zoo);
+    sellingManager.addNewAnimal(animal);
+
+    sellingManager.disposeAnimal(zoo, animal);
+
+    Zoo retrievedZoo = sellingManager.findZooByOwner(ZOO_OWNER_3);
+    List<Animal> ownedAnimals = sellingManager.getOwnedAnimals(retrievedZoo);
+
+    assertEquals(0, ownedAnimals.size());
 
 	}
 

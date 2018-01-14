@@ -4,6 +4,6 @@ import domain.Zoo;
 
 public interface ZooManagerInterface {
 
-	// ... person methods interface
+	// ... zoo methods interface
 
 }
