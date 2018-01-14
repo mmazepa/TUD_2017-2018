@@ -2,96 +2,55 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
-	<!-- Scans within the base package of the application for @Components to
-		configure as beans -->
-	<context:component-scan base-package="service" />
 
-	<bean id="animal01" class="domain.FamilyMember">
-    <property name="species" value="Lew" />
-		<property name="name" value="Henryk" />
-    <property name="gender" value="Male" />
-		<property name="yob" value="1834" />
-    <property name="child">
-      <ref bean="animal02"/>
-    </property>
+	<context:property-placeholder location="jdbc.properties" />
+
+	<!--
+		Scans within the base package of the application for @Components to
+		configure as beans
+	-->
+	<context:component-scan
+		base-package="service" />
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+	destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
 	</bean>
 
-  <bean id="animal02" class="domain.FamilyMember">
-    <property name="species" value="Lew" />
-    <property name="name" value="Franciszek" />
-    <property name="gender" value="Male" />
-    <property name="yob" value="1864" />
-    <property name="parent">
-      <ref bean="animal01"/>
-    </property>
-    <property name="child">
-      <ref bean="animal03"/>
-    </property>
-  </bean>
+	<!--
+		enable the configuration of transactional behavior based on
+		annotations
+	-->
+	<tx:annotation-driven transaction-manager="txManager" />
 
-  <bean id="animal03" class="domain.FamilyMember">
-    <property name="species" value="Lew" />
-    <property name="name" value="Michał" />
-    <property name="gender" value="Male" />
-    <property name="yob" value="1894" />
-    <property name="parent">
-      <ref bean="animal02"/>
-    </property>
-    <property name="child">
-      <ref bean="animal04"/>
-    </property>
-  </bean>
+	<bean id="hibernateSessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="schemaUpdate" value="true" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+        <prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+		<property name="packagesToScan" value="domain" />
+	</bean>
 
-  <bean id="animal04" class="domain.FamilyMember">
-    <property name="species" value="Lew" />
-    <property name="name" value="Karolina" />
-    <property name="gender" value="Female" />
-    <property name="yob" value="1924" />
-    <property name="parent">
-      <ref bean="animal03"/>
-    </property>
-    <property name="child">
-      <ref bean="animal05"/>
-    </property>
-  </bean>
-
-  <bean id="animal05" class="domain.FamilyMember">
-    <property name="species" value="Lew" />
-    <property name="name" value="Zofia" />
-    <property name="gender" value="Female" />
-    <property name="yob" value="1954" />
-    <property name="parent">
-      <ref bean="animal04"/>
-    </property>
-    <property name="child">
-      <ref bean="animal06"/>
-    </property>
-  </bean>
-
-  <bean id="animal06" class="domain.FamilyMember">
-    <property name="species" value="Lew" />
-    <property name="name" value="Kazimierz" />
-    <property name="gender" value="Male" />
-    <property name="yob" value="1984" />
-    <property name="parent">
-      <ref bean="animal05"/>
-    </property>
-    <property name="child">
-      <ref bean="animal07"/>
-    </property>
-  </bean>
-
-  <bean id="animal07" class="domain.FamilyMember">
-    <property name="species" value="Lew" />
-    <property name="name" value="Genowefa" />
-    <property name="gender" value="Female" />
-    <property name="yob" value="2014" />
-    <property name="parent">
-      <ref bean="animal06"/>
-    </property>
-  </bean>
+	<bean id="txManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="hibernateSessionFactory" />
+	</bean>
 
 </beans>
