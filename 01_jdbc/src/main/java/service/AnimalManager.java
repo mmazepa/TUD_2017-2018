@@ -310,7 +310,7 @@ public class AnimalManager implements IAnimalManager {
       }
       catch (SQLException e2) {
         // e2.printStackTrace();
-        exceptionInfo("AnimalManager.businessMethod() failed!");
+        exceptionInfo("connection.rollback() failed!");
         return false;
       }
     }

@@ -99,16 +99,21 @@ public class AnimalManagerTest {
   Animal animal7 = new Animal(SPECIES_7, HEIGHT_7, WEIGHT_7, ISEXTINCT_7, DATEOFBIRTH_7);
   Animal animal8 = new Animal(SPECIES_8, HEIGHT_8, WEIGHT_8, ISEXTINCT_8, DATEOFBIRTH_8);
 
+  // Font style - color, bold and reset (console)
+  public static final String ANSI_RESET = "\u001B[0m";
+  public static final String ANSI_BOLD  = "\u001B[1m";
+  public static final String ANSI_WHITE = "\u001B[37m";
+
   @BeforeClass
   public static void setUpClass() {
     // Before testing
-    System.out.println("\n   [TESTS START]");
+    System.out.println("\n   " + ANSI_WHITE + ANSI_BOLD + "[TESTS START]" + ANSI_RESET);
   }
 
   @AfterClass
   public static void tearDownClass() {
     // After testing
-    System.out.println("   [TESTS END]\n");
+    System.out.println("   " + ANSI_WHITE + ANSI_BOLD + "[TESTS END]" + ANSI_RESET + "\n");
   }
 
   @Before
