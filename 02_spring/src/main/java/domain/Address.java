@@ -20,6 +20,18 @@ public class Address {
 	private String city;
   private String country;
 
+  public Address(String street, int number, String postalCode, String city, String country) {
+    this.street = street;
+    this.number = number;
+    this.postalCode = postalCode;
+    this.city = city;
+    this.country = country;
+  }
+
+  public Address() {
+
+  }
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long getId() {

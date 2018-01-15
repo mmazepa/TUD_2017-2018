@@ -24,6 +24,17 @@ public class Animal {
 	private Boolean sold = false;
   private Breeder breeder;
 
+  public Animal(String species, String name, Breeder breeder) {
+    this.id = id;
+    this.species = species;
+    this.name = name;
+    this.breeder = breeder;
+  }
+
+  public Animal() {
+
+  }
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long getId() {

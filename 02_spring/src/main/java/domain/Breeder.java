@@ -22,6 +22,16 @@ public class Breeder {
 	private String breedingSpecies;
   private Address address;
 
+  public Breeder(String firstName, String breedingSpecies, Address address) {
+    this.firstName = firstName;
+    this.breedingSpecies = breedingSpecies;
+    this.address = address;
+  }
+
+  public Breeder() {
+
+  }
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long getId() {

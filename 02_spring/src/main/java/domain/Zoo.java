@@ -26,12 +26,21 @@ import javax.persistence.TemporalType;
 public class Zoo {
 
 	private Long id;
-
-	private String name = "unknown";
-	private String owner = "unknown";
+	private String name;
+	private String owner;
 	private Date creationDate = new Date();
 	private List<Animal> animals = new ArrayList<Animal>();
   private Address address;
+
+  public Zoo(String name, String owner, Address address) {
+    this.name = name;
+    this.owner = owner;
+    this.address = address;
+  }
+
+  public Zoo() {
+
+  }
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
