@@ -25,7 +25,6 @@ public class Animal {
   private Breeder breeder;
 
   public Animal(String species, String name, Breeder breeder) {
-    this.id = id;
     this.species = species;
     this.name = name;
     this.breeder = breeder;
