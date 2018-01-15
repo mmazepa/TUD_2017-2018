@@ -16,6 +16,7 @@ import static org.hamcrest.CoreMatchers.*;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Connection;
 import java.net.ConnectException;
 
 import domain.Animal;
@@ -113,12 +114,14 @@ public class AnimalManagerTest {
   @AfterClass
   public static void tearDownClass() {
     // After testing
+    System.out.println("   --------------------------------------------------------");
     System.out.println("   " + ANSI_WHITE + ANSI_BOLD + "[TESTS END]" + ANSI_RESET + "\n");
   }
 
   @Before
   public void setUp() {
     // Before every test
+    System.out.println("   --------------------------------------------------------");
   }
 
   @After
@@ -132,10 +135,12 @@ public class AnimalManagerTest {
     animalManager.testInfo(1, "Check Connection Negative");
 
     try {
-      assertNull(animalManager.getConnection());
+      Connection connection = animalManager.getConnection();
+      assertNull(connection);
       animalManager.exceptionInfo("Connection is null.");
     } catch (AssertionError err) {
-      assertNotNull(animalManager.getConnection());
+      Connection connection = animalManager.getConnection();
+      assertNotNull(connection);
       animalManager.exceptionInfo("assertNull(animalManager.getConnection()) failed!");
     }
 
@@ -147,10 +152,12 @@ public class AnimalManagerTest {
     animalManager.testInfo(2, "Check Connection Positive");
 
     try {
-      assertNotNull(animalManager.getConnection());
-      System.out.println("     Connection is OK: " + animalManager.getConnection());
+      Connection connection = animalManager.getConnection();
+      assertNotNull(connection);
+      System.out.println("     Connection is OK: " + connection);
     } catch (AssertionError err) {
-      assertNull(animalManager.getConnection());
+      Connection connection = animalManager.getConnection();
+      assertNull(connection);
       animalManager.exceptionInfo("     [ERROR] Connection is null.");
     }
 
@@ -161,9 +168,10 @@ public class AnimalManagerTest {
 
     animalManager.testInfo(3, "Check Adding Negative");
 
-    assertEquals(0,animalManager.addAnimal(animal8));
-
-    System.out.println("     Animal [" + SPECIES_8 + "] was not added.");
+    int addRowCount = animalManager.addAnimal(animal8);
+    assertEquals(0, addRowCount);
+    if (addRowCount == 0)
+      System.out.println("     Animal [" + SPECIES_8 + "] was not added.");
 
   }
 
@@ -173,17 +181,20 @@ public class AnimalManagerTest {
     animalManager.testInfo(4, "Check Adding Positive");
     animalManager.clearAnimals();
 
-		assertEquals(1,animalManager.addAnimal(animal1));
+    int addRowCount = animalManager.addAnimal(animal1);
+		assertEquals(1, addRowCount);
 
-		List<Animal> animals = animalManager.getAllAnimals();
-		Animal animalRetrieved = animals.get(0);
+    if (addRowCount == 1) {
+  		List<Animal> animals = animalManager.getAllAnimals();
+  		Animal animalRetrieved = animals.get(0);
 
-		assertEquals(SPECIES_1,     animalRetrieved.getSpecies());
-		assertEquals(HEIGHT_1,      animalRetrieved.getHeight(), 0D);
-    assertEquals(WEIGHT_1,      animalRetrieved.getWeight(), 0D);
-    assertEquals(ISEXTINCT_1,   animalRetrieved.getIsExtinct());
-    assertEquals(DATEOFBIRTH_1, animalRetrieved.getDateOfBirth());
-    System.out.println("     Animal [" + SPECIES_1 + "] was added.");
+  		assertEquals(SPECIES_1,     animalRetrieved.getSpecies());
+  		assertEquals(HEIGHT_1,      animalRetrieved.getHeight(), 0D);
+      assertEquals(WEIGHT_1,      animalRetrieved.getWeight(), 0D);
+      assertEquals(ISEXTINCT_1,   animalRetrieved.getIsExtinct());
+      assertEquals(DATEOFBIRTH_1, animalRetrieved.getDateOfBirth());
+      System.out.println("     Animal [" + SPECIES_1 + "] was added.");
+    }
 
 	}
 
@@ -240,8 +251,11 @@ public class AnimalManagerTest {
 
     String oldSpecies = "Nosorożec";
     String newSpecies = "Lew";
-    assertEquals(0,animalManager.updateAnimal(oldSpecies, newSpecies));
-    System.out.println("     Animal [" + oldSpecies + "] species was not changed to [" + newSpecies + "].");
+
+    int updateRowCount = animalManager.updateAnimal(oldSpecies, newSpecies);
+    assertEquals(0, updateRowCount);
+    if (updateRowCount == 0)
+      System.out.println("     Animal [" + oldSpecies + "] species was not changed to [" + newSpecies + "].");
 
   }
 
@@ -252,8 +266,11 @@ public class AnimalManagerTest {
 
     String oldSpecies = "Nosorożec";
     String newSpecies = "Słoń";
-    assertEquals(1,animalManager.updateAnimal(oldSpecies, newSpecies));
-    System.out.println("     Animal [" + oldSpecies + "] species was changed to [" + newSpecies + "].");
+
+    int updateRowCount = animalManager.updateAnimal(oldSpecies, newSpecies);
+    assertEquals(1, updateRowCount);
+    if (updateRowCount == 1)
+      System.out.println("     Animal [" + oldSpecies + "] species was changed to [" + newSpecies + "].");
 
   }
 
@@ -273,8 +290,10 @@ public class AnimalManagerTest {
 
     int size = animalManager.getAllAnimals().size();
 
-    assertNotEquals(size, animalManager.updateAllAnimals(animals));
-    System.out.println("     Number of 0 Animals updated (weight increased by 10%).");
+    int updateRowCount = animalManager.updateAllAnimals(animals);
+    assertNotEquals(size, updateRowCount);
+    if (updateRowCount != size)
+      System.out.println("     Number of 0 Animals updated (weight increased by 10%).");
 
   }
 
@@ -292,11 +311,12 @@ public class AnimalManagerTest {
     animals.add(animal6);
     animals.add(animal7);
 
-		animalManager.updateAllAnimals(animals);
 		int size = animalManager.getAllAnimals().size();
 
+		int updateRowCount = animalManager.updateAllAnimals(animals);
     assertThat(size, either(is(animals.size())).or(is(0)));
-    System.out.println("     Number of " + size + " Animals updated (weight increased by 10%).");
+    if (updateRowCount == size)
+      System.out.println("     Number of " + size + " Animals updated (weight increased by 10%).");
 
   }
 
@@ -308,8 +328,11 @@ public class AnimalManagerTest {
     List<Animal> animals = animalManager.getAllAnimals();
 		Animal animalRetrieved = animals.get(0);
     long animalId = animalRetrieved.getId() - 1;
-    assertEquals(0,animalManager.deleteAnimal(animalId));
-    System.out.println("     Animal with ID " + animalId + " was not deleted, animal not found.");
+
+    int deleteRowCount = animalManager.deleteAnimal(animalId);
+    assertEquals(0, deleteRowCount);
+    if (deleteRowCount == 0)
+      System.out.println("     Animal with ID " + animalId + " was not deleted, animal not found.");
 
   }
 
@@ -321,8 +344,11 @@ public class AnimalManagerTest {
     List<Animal> animals = animalManager.getAllAnimals();
 		Animal animalRetrieved = animals.get(0);
     long animalId = animalRetrieved.getId();
-    assertEquals(1,animalManager.deleteAnimal(animalId));
-    System.out.println("     Animal with ID " + animalId + " [" + animalRetrieved.getSpecies() + "] was deleted.");
+
+    int deleteRowCount = animalManager.deleteAnimal(animalId);
+    assertEquals(1, deleteRowCount);
+    if (deleteRowCount == 1)
+      System.out.println("     Animal with ID " + animalId + " [" + animalRetrieved.getSpecies() + "] was deleted.");
 
   }
 
@@ -332,8 +358,10 @@ public class AnimalManagerTest {
     animalManager.testInfo(13, "Check Searching Negative");
 
     String requiredSpecies = "Wielbłąd";
-    assertNull(animalManager.findAnimalBySpecies(requiredSpecies));
-    System.out.println("     Animal with required species [" + requiredSpecies + "] was not found.");
+    Animal foundAnimal = animalManager.findAnimalBySpecies(requiredSpecies);
+    assertNull(foundAnimal);
+    if (foundAnimal == null)
+      System.out.println("     Animal with required species [" + requiredSpecies + "] was not found.");
 
   }
 
@@ -343,8 +371,10 @@ public class AnimalManagerTest {
     animalManager.testInfo(14, "Check Searching Positive");
 
     String requiredSpecies = "Jeż";
-    assertNotNull(animalManager.findAnimalBySpecies(requiredSpecies));
-    System.out.println("     Animal with required species [" + requiredSpecies + "] was found.");
+    Animal foundAnimal = animalManager.findAnimalBySpecies(requiredSpecies);
+    assertNotNull(foundAnimal);
+    if (foundAnimal != null)
+      System.out.println("     Animal with required species [" + requiredSpecies + "] was found.");
 
   }
 
@@ -362,9 +392,10 @@ public class AnimalManagerTest {
     animals.add(animal2);
     animals.add(animal3);
 
-    assertEquals(animalManager.businessMethod(animals, newSpecies), false);
-    System.out.println("     BusinessMethod failed!");
-
+    Boolean result = animalManager.businessMethod(animals, newSpecies);
+    assertEquals(result, false);
+    if (result == false)
+      System.out.println("     BusinessMethod failed!");
 	}
 
 	@Test
@@ -382,9 +413,10 @@ public class AnimalManagerTest {
     animals.add(animal1);
     animals.add(animal2);
 
-    assertEquals(animalManager.businessMethod(animals, newSpecies), true);
-    System.out.println("     BusinessMethod finished successfully!");
-
-	}
+    Boolean result = animalManager.businessMethod(animals, newSpecies);
+    assertEquals(result, true);
+    if (result == true)
+      System.out.println("     BusinessMethod finished successfully!");
+  }
 
 }

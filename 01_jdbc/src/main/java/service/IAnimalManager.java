@@ -7,10 +7,12 @@ import domain.Animal;
 
 interface IAnimalManager {
 
+  // standard CRUD - add, update, delete
   public int addAnimal(Animal animal);
   public int updateAnimal(String oldSpecies, String newSpecies);
   public int deleteAnimal(long animalId);
 
+  // SELECT's for CRUD - getAll, findBy...
   public List<Animal> getAllAnimals();
   public Animal findAnimalBySpecies(String species);
 
