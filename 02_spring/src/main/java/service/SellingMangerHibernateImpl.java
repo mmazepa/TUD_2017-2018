@@ -39,6 +39,7 @@ public class SellingMangerHibernateImpl implements SellingManagerInterface {
     oldZoo = (Zoo) sessionFactory.getCurrentSession().get(Zoo.class, oldZoo.getId());
     oldZoo.setName(newZoo.getName());
     oldZoo.setOwner(newZoo.getOwner());
+    oldZoo.setAddress(newZoo.getAddress());
     sessionFactory.getCurrentSession().update(oldZoo);
   }
 
@@ -104,6 +105,31 @@ public class SellingMangerHibernateImpl implements SellingManagerInterface {
 	public List<Animal> getAvailableAnimals() {
 		return sessionFactory.getCurrentSession().getNamedQuery("animal.unsold").list();
 	}
+
+  @Override
+  @SuppressWarnings("unchecked")
+  public List<Animal> getAllAnimals() {
+    return sessionFactory.getCurrentSession().getNamedQuery("animal.all").list();
+  }
+
+  @Override
+  public void deleteAnimal(Animal animal) {
+
+    animal = (Animal) sessionFactory.getCurrentSession().get(Animal.class, animal.getId());
+
+    List<Zoo> zoos = getAllZoos();
+    for (Zoo aZoo : zoos) {
+      for (Animal anAnimal : aZoo.getAnimals()) {
+        if (anAnimal.getId().compareTo(animal.getId()) == 0) {
+          disposeAnimal(aZoo, animal);
+          break;
+        }
+      }
+    }
+
+    sessionFactory.getCurrentSession().delete(animal);
+  }
+
 	@Override
 	public void disposeAnimal(Zoo zoo, Animal animal) {
 
@@ -146,6 +172,7 @@ public class SellingMangerHibernateImpl implements SellingManagerInterface {
     oldBreeder = (Breeder) sessionFactory.getCurrentSession().get(Breeder.class, oldBreeder.getId());
     oldBreeder.setFirstName(newBreeder.getFirstName());
     oldBreeder.setBreedingSpecies(newBreeder.getBreedingSpecies());
+    oldBreeder.setAddress(newBreeder.getAddress());
     sessionFactory.getCurrentSession().update(oldBreeder);
   }
 

@@ -29,7 +29,9 @@ public interface SellingManagerInterface {
 
 	Long addNewAnimal(Animal animal);
 	List<Animal> getAvailableAnimals();
+  List<Animal> getAllAnimals();
   void updateAnimal(Animal oldAnimal, Animal newAnimal);
+  void deleteAnimal(Animal animal);
 	void disposeAnimal(Zoo zoo, Animal animal);
 	Animal findAnimalById(Long id);
   Animal findAnimalByBreeder(Breeder breeder);

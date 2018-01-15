@@ -92,32 +92,40 @@ public class SellingManagerTest {
   }
 
   public static void testInfo(String testInfo, String data1, String data2) {
-    String successInfo = colorizeText(boldText("[SUCCESS]:"), "blue") + " " + colorizeText( testInfo + " is correct.", "blue");
-    String failureInfo = colorizeText(boldText("[FAILURE]:"), "red") + " " + colorizeText( testInfo + " is incorrect.", "red");
+    String successInfo = colorizeText(boldText("[SUCCESS]:"), "blue") + " " + colorizeText(testInfo + " is correct.", "blue");
+    String failureInfo = colorizeText(boldText("[FAILURE]:"), "red") + " " + colorizeText(testInfo + " is incorrect.", "red");
 
     if (data1.equals(data2)) System.out.println(successInfo);
     else System.out.println(failureInfo);
   }
 
   public static void testInfo(String testInfo, Boolean data1, Boolean data2) {
-    String successInfo = colorizeText(boldText("[SUCCESS]:"), "blue") + " " + colorizeText( testInfo + " is correct.", "blue");
-    String failureInfo = colorizeText(boldText("[FAILURE]:"), "red") + " " + colorizeText( testInfo + " is incorrect.", "red");
+    String successInfo = colorizeText(boldText("[SUCCESS]:"), "blue") + " " + colorizeText(testInfo + " is correct.", "blue");
+    String failureInfo = colorizeText(boldText("[FAILURE]:"), "red") + " " + colorizeText(testInfo + " is incorrect.", "red");
 
     if (data1 == data2) System.out.println(successInfo);
     else System.out.println(failureInfo);
   }
 
   public static void testInfo(String testInfo, int data1, int data2) {
-    String successInfo = colorizeText(boldText("[SUCCESS]:"), "blue") + " " + colorizeText( testInfo + " is correct.", "blue");
-    String failureInfo = colorizeText(boldText("[FAILURE]:"), "red") + " " + colorizeText( testInfo + " is incorrect.", "red");
+    String successInfo = colorizeText(boldText("[SUCCESS]:"), "blue") + " " + colorizeText(testInfo + " is correct.", "blue");
+    String failureInfo = colorizeText(boldText("[FAILURE]:"), "red") + " " + colorizeText(testInfo + " is incorrect.", "red");
 
     if (data1 == data2) System.out.println(successInfo);
     else System.out.println(failureInfo);
   }
 
   public static void testInfo(String testInfo, Breeder data1, Breeder data2) {
-    String successInfo = colorizeText(boldText("[SUCCESS]:"), "blue") + " " + colorizeText( testInfo + " is correct.", "blue");
-    String failureInfo = colorizeText(boldText("[FAILURE]:"), "red") + " " + colorizeText( testInfo + " is incorrect.", "red");
+    String successInfo = colorizeText(boldText("[SUCCESS]:"), "blue") + " " + colorizeText(testInfo + " is correct.", "blue");
+    String failureInfo = colorizeText(boldText("[FAILURE]:"), "red") + " " + colorizeText(testInfo + " is incorrect.", "red");
+
+    if (data1 == data2) System.out.println(successInfo);
+    else System.out.println(failureInfo);
+  }
+
+  public static void testInfo(String testInfo, Address data1, Address data2) {
+    String successInfo = colorizeText(boldText("[SUCCESS]:"), "blue") + " " + colorizeText(testInfo + " is correct.", "blue");
+    String failureInfo = colorizeText(boldText("[FAILURE]:"), "red") + " " + colorizeText(testInfo + " is incorrect.", "red");
 
     if (data1 == data2) System.out.println(successInfo);
     else System.out.println(failureInfo);
@@ -180,6 +188,13 @@ public class SellingManagerTest {
 		Zoo zoo = new Zoo();
 		zoo.setName(ZOO_NAME_1);
 		zoo.setOwner(ZOO_OWNER_1);
+    Address address = new Address();
+    address.setStreet(ADDRESS_STREET_1);
+    address.setNumber(ADDRESS_NUMBER_1);
+    address.setPostalCode(ADDRESS_POSTALCODE_1);
+    address.setCity(ADDRESS_CITY_1);
+    address.setCountry(ADDRESS_COUNTRY_1);
+    zoo.setAddress(address);
 		// ... other properties here
 
 		// Owner is Unique
@@ -192,6 +207,9 @@ public class SellingManagerTest {
 
 		assertEquals(ZOO_OWNER_1, retrievedZoo.getOwner());
     testInfo("Zoo owner", ZOO_OWNER_1, retrievedZoo.getOwner());
+
+    assertEquals(address, retrievedZoo.getAddress());
+    testInfo("Zoo address", address, retrievedZoo.getAddress());
 		// ... check other properties here
 	}
 
@@ -238,6 +256,13 @@ public class SellingManagerTest {
 		Breeder breeder = new Breeder();
 		breeder.setFirstName(BREEDER_FIRSTNAME_1);
 		breeder.setBreedingSpecies(BREEDER_BREEDINGSPECIES_1);
+    Address address = new Address();
+    address.setStreet(ADDRESS_STREET_2);
+    address.setNumber(ADDRESS_NUMBER_2);
+    address.setPostalCode(ADDRESS_POSTALCODE_2);
+    address.setCity(ADDRESS_CITY_2);
+    address.setCountry(ADDRESS_COUNTRY_2);
+    breeder.setAddress(address);
 		// ... other properties here
 
 		sellingManager.addBreeder(breeder);
@@ -249,6 +274,9 @@ public class SellingManagerTest {
 
 		assertEquals(BREEDER_BREEDINGSPECIES_1, retrievedBreeder.getBreedingSpecies());
     testInfo("Breeder breeding species", BREEDER_BREEDINGSPECIES_1, retrievedBreeder.getBreedingSpecies());
+
+    assertEquals(address, retrievedBreeder.getAddress());
+    testInfo("Breeder address", address, retrievedBreeder.getAddress());
 		// ... check other properties here
 
 	}
@@ -305,11 +333,25 @@ public class SellingManagerTest {
     Zoo zoo1 = new Zoo();
     zoo1.setName(ZOO_NAME_1);
     zoo1.setOwner(ZOO_OWNER_1);
+    Address address1 = new Address();
+    address1.setStreet(ADDRESS_STREET_1);
+    address1.setNumber(ADDRESS_NUMBER_1);
+    address1.setPostalCode(ADDRESS_POSTALCODE_1);
+    address1.setCity(ADDRESS_CITY_1);
+    address1.setCountry(ADDRESS_COUNTRY_1);
+    zoo1.setAddress(address1);
     sellingManager.addZoo(zoo1);
 
     Zoo zoo2 = new Zoo();
     zoo2.setName(zoo1.getName());
     zoo2.setOwner(ZOO_OWNER_2);
+    Address address2 = new Address();
+    address2.setStreet(ADDRESS_STREET_1);
+    address2.setNumber(ADDRESS_NUMBER_1);
+    address2.setPostalCode(ADDRESS_POSTALCODE_1);
+    address2.setCity(ADDRESS_CITY_2);
+    address2.setCountry(ADDRESS_COUNTRY_2);
+    zoo2.setAddress(address2);
 
     sellingManager.updateZoo(zoo1, zoo2);
 
@@ -320,6 +362,9 @@ public class SellingManagerTest {
 
 		assertEquals(ZOO_OWNER_2, retrievedZoo.getOwner());
     testInfo("Zoo new owner", ZOO_OWNER_2, retrievedZoo.getOwner());
+
+    assertEquals(address2, retrievedZoo.getAddress());
+    testInfo("Zoo new address", address2, retrievedZoo.getAddress());
 
   }
 
@@ -369,11 +414,26 @@ public class SellingManagerTest {
     Breeder breeder1 = new Breeder();
     breeder1.setFirstName(BREEDER_FIRSTNAME_1);
     breeder1.setBreedingSpecies(BREEDER_BREEDINGSPECIES_1);
+    Address address1 = new Address();
+    address1.setStreet(ADDRESS_STREET_1);
+    address1.setNumber(ADDRESS_NUMBER_1);
+    address1.setPostalCode(ADDRESS_POSTALCODE_1);
+    address1.setCity(ADDRESS_CITY_1);
+    address1.setCountry(ADDRESS_COUNTRY_1);
+    breeder1.setAddress(address1);
+
     sellingManager.addBreeder(breeder1);
 
     Breeder breeder2 = new Breeder();
     breeder2.setFirstName(breeder1.getFirstName());
     breeder2.setBreedingSpecies(BREEDER_BREEDINGSPECIES_2);
+    Address address2 = new Address();
+    address2.setStreet(ADDRESS_STREET_1);
+    address2.setNumber(ADDRESS_NUMBER_3);
+    address2.setPostalCode(ADDRESS_POSTALCODE_1);
+    address2.setCity(ADDRESS_CITY_3);
+    address2.setCountry(ADDRESS_COUNTRY_1);
+    breeder2.setAddress(address2);
 
     sellingManager.updateBreeder(breeder1, breeder2);
 
@@ -384,6 +444,9 @@ public class SellingManagerTest {
 
     assertEquals(BREEDER_BREEDINGSPECIES_2, retrievedBreeder.getBreedingSpecies());
     testInfo("Breeder new breeding species", BREEDER_BREEDINGSPECIES_2, retrievedBreeder.getBreedingSpecies());
+
+    assertEquals(address2, retrievedBreeder.getAddress());
+    testInfo("Breeder new address", address2, retrievedBreeder.getAddress());
 
   }
 
@@ -522,6 +585,64 @@ public class SellingManagerTest {
 
     assertEquals(0, retrievedZoos.size());
     testInfo("Zoos after delete count", 0, retrievedZoos.size());
+
+  }
+
+  @Test
+  public void deleteAnimalCheck() {
+
+    testInfo("Delete Animal Check");
+
+    Zoo zoo = new Zoo();
+    zoo.setName(ZOO_NAME_1);
+    zoo.setOwner(ZOO_OWNER_1);
+
+    Address address1 = new Address();
+    address1.setStreet(ADDRESS_STREET_1);
+    address1.setNumber(ADDRESS_NUMBER_1);
+    address1.setPostalCode(ADDRESS_POSTALCODE_1);
+    address1.setCity(ADDRESS_CITY_1);
+    address1.setCountry(ADDRESS_COUNTRY_1);
+
+    sellingManager.addAddress(address1);
+    zoo.setAddress(address1);
+    sellingManager.addZoo(zoo);
+
+    Animal animal = new Animal();
+    animal.setSpecies(ANIMAL_SPECIES_1);
+    animal.setName(ANIMAL_NAME_1);
+
+    Breeder breeder = new Breeder();
+    breeder.setFirstName(BREEDER_FIRSTNAME_1);
+    breeder.setBreedingSpecies(BREEDER_BREEDINGSPECIES_1);
+
+    Address address2 = new Address();
+    address2.setStreet(ADDRESS_STREET_2);
+    address2.setNumber(ADDRESS_NUMBER_2);
+    address2.setPostalCode(ADDRESS_POSTALCODE_2);
+    address2.setCity(ADDRESS_CITY_2);
+    address2.setCountry(ADDRESS_COUNTRY_2);
+
+    sellingManager.addAddress(address2);
+    breeder.setAddress(address2);
+    sellingManager.addBreeder(breeder);
+    animal.setBreeder(breeder);
+    sellingManager.addNewAnimal(animal);
+
+    sellingManager.sellAnimal(zoo.getId(), animal.getId());
+
+    List<Animal> retrievedAnimals = sellingManager.getAllAnimals();
+    Animal retrievedAnimal = retrievedAnimals.get(0);
+
+    assertEquals(1, retrievedAnimals.size());
+    testInfo("Animals before delete count", 1, retrievedAnimals.size());
+
+    sellingManager.deleteAnimal(retrievedAnimal);
+    retrievedAnimals = sellingManager.getAllAnimals();
+
+    assertEquals(0, retrievedAnimals.size());
+    testInfo("Animals after delete count", 0, retrievedAnimals.size());
+
 
   }
 
