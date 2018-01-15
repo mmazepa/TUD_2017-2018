@@ -5,14 +5,14 @@
 		-> HIBERNATE
 		-> ORM (Object Relational Mapper)
 
-		-> SESSION (HibernateSession) <-- DOKUMENTACJA metody
-		   -------				- saveOrUpdate
-			^				- get
-	SellingManager	|			domain			CRUD
-	       -------					- ...		----
-						[@Entity]		obowiązkowe
-						[@Id]			obowiązkowe
-						[@GeneratedValue]	opcjonalne
+		  -> SESSION (HibernateSession) <-- DOKUMENTACJA metody
+		     -------				                    - saveOrUpdate
+			         ^				                    - get
+SellingManager |			           domain			        CRUD
+       -------					         - ...   		        ----
+						                     [@Entity]	        obowiązkowe
+						                     [@Id]			        obowiązkowe
+						                     [@GeneratedValue]  opcjonalne
 
 	Zad.
 	----

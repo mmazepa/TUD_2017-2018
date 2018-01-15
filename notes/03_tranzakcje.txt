@@ -5,7 +5,7 @@
 	1) Zaprojektuj i zaimplementuj operacje tranzakcyjne:
 
 		* batch... (batch update, batch insert...)
-			- wszystkie (wstawienia, updaty)
+			- wszystkie (wstawienia, update'y)
 			się powiodą albo żadne
 
 		* "metoda biznesowa" - kilka czynności na danych

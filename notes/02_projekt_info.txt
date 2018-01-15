@@ -8,7 +8,7 @@
 		   różnych typów)		np. Boolean, Double, String,
 						Date (java.sql.Date vs. java.util.Date)
 
-		2) Github - projekty		TUD_01, O.K.
+		2) Github - projekty		TUD_2017-2018, O.K.
 
 		3) CRUD - 1 tabela		Add, Delete, Edit, Search...
 		   				findByName, findOlder...

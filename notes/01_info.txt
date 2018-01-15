@@ -9,4 +9,5 @@ MUST HAVE/NEED TO WORK:
 
 "POLECAM (...), ALE PEŁNA DOWOLNOŚĆ":
 
-- ECLIPSE FOR JAVA EE DEVELOPERS (lepiej przystosowana do współpracy z różnymi wtyczkami i z samym nawet Mavenem)
+- ECLIPSE FOR JAVA EE DEVELOPERS
+(lepiej przystosowana do współpracy z różnymi wtyczkami i z samym nawet Mavenem)

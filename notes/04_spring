@@ -1,5 +1,7 @@
+
+
 SPRING FRAMEWORK:
-		V (romb)
+		 V (romb)
 	+==========================+
 	|                          |
 	| +===+              +===+ |
@@ -12,14 +14,17 @@ SPRING FRAMEWORK:
 	-> dependency injection
 
 	1) GitHub Springdemo
-	2) Zadania
+
+  2) Zadania
 		* babcie, dziadkowie
 		* rodzice
 		* dzieci (wnuki)
-	   Konfiguracja porzez:
-		a) Adnotacje @Component
-			- @Autowired
-			- ? gdy Autowired nie zadziała
-		b) Plik beans.xml
-		c) Wstrzyknięcie do konstruktora
-	3) Testy struktury
+
+     Konfiguracja porzez:
+		   a) Adnotacje @Component
+			    - @Autowired
+			    - ? gdy Autowired nie zadziała
+		   b) Plik beans.xml
+		   c) Wstrzyknięcie do konstruktora
+
+  3) Testy struktury

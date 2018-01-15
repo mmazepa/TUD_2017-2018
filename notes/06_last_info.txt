@@ -11,8 +11,8 @@
 	@ManyToMany            |-- MINIMUM! --|------> Uni-directional
 	@OneToOne      <-------|
 
-	Lazy Initialization --- FetchType.EAGER/LAZY
-                      --- CascadeType.ALL ...
+	Lazy Initialization  --- FetchType.EAGER/LAZY
+                       --- CascadeType.ALL ...
 
 	Testy!
 	@Transactional
