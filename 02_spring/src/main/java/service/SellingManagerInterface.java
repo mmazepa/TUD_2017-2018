@@ -3,6 +3,7 @@ package service;
 import java.util.List;
 
 import domain.Animal;
+import domain.Address;
 import domain.Breeder;
 import domain.Zoo;
 
@@ -13,6 +14,11 @@ public interface SellingManagerInterface {
   void updateZoo(Zoo oldZoo, Zoo newZoo);
 	void deleteZoo(Zoo zoo);
 	Zoo findZooByOwner(String owner);
+
+  void addAddress(Address address);
+  List<Address> getAllAddresses();
+  void updateAddress(Address oldAddress, Address newAddress);
+  void deleteAddress(Address address);
 
   void addBreeder(Breeder breeder);
   List<Breeder> getAllBreeders();

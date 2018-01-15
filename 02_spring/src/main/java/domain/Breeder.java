@@ -6,6 +6,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
 
 @Entity
 @NamedQueries({
@@ -17,6 +20,7 @@ public class Breeder {
 	private Long id;
 	private String firstName;
 	private String breedingSpecies;
+  private Address address;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -40,4 +44,12 @@ public class Breeder {
 	public void setBreedingSpecies(String breedingSpecies) {
 		this.breedingSpecies = breedingSpecies;
 	}
+
+  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  public Address getAddress() {
+    return address;
+  }
+  public void setAddress(Address address) {
+    this.address = address;
+  }
 }

@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -29,8 +30,8 @@ public class Zoo {
 	private String name = "unknown";
 	private String owner = "unknown";
 	private Date creationDate = new Date();
-
 	private List<Animal> animals = new ArrayList<Animal>();
+  private Address address;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -72,4 +73,12 @@ public class Zoo {
 	public void setAnimals(List<Animal> animals) {
 		this.animals = animals;
 	}
+
+  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  public Address getAddress() {
+    return address;
+  }
+  public void setAddress(Address address) {
+    this.address = address;
+  }
 }

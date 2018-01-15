@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
 
@@ -54,7 +54,7 @@ public class Animal {
 		this.sold = sold;
 	}
 
-  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   public Breeder getBreeder() {
     return breeder;
   }

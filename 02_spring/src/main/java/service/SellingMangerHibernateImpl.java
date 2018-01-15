@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import domain.Animal;
+import domain.Address;
 import domain.Breeder;
 import domain.Zoo;
 
@@ -176,6 +177,54 @@ public class SellingMangerHibernateImpl implements SellingManagerInterface {
   @Override
   public Animal findAnimalByBreeder(Breeder breeder) {
     return (Animal) sessionFactory.getCurrentSession().getNamedQuery("animal.byBreeder").setLong("breeder", breeder.getId()).uniqueResult();
+  }
+
+  @Override
+  public void addAddress(Address address) {
+    address.setId(null);
+    sessionFactory.getCurrentSession().persist(address);
+  }
+
+  @Override
+  @SuppressWarnings("unchecked")
+  public List<Address> getAllAddresses() {
+    return sessionFactory.getCurrentSession().getNamedQuery("address.all").list();
+  }
+
+  @Override
+  public void updateAddress(Address oldAddress, Address newAddress) {
+    oldAddress = (Address) sessionFactory.getCurrentSession().get(Address.class, oldAddress.getId());
+    oldAddress.setStreet(newAddress.getStreet());
+    oldAddress.setNumber(newAddress.getNumber());
+    oldAddress.setPostalCode(newAddress.getPostalCode());
+    oldAddress.setCity(newAddress.getCity());
+    oldAddress.setCountry(newAddress.getCountry());
+    sessionFactory.getCurrentSession().update(oldAddress);
+  }
+
+  @Override
+  public void deleteAddress(Address address) {
+
+		address = (Address) sessionFactory.getCurrentSession().get(Address.class, address.getId());
+
+    List<Breeder> breeders = sessionFactory.getCurrentSession().getNamedQuery("breeder.all").list();
+    List<Zoo> zoos = sessionFactory.getCurrentSession().getNamedQuery("zoo.all").list();
+
+		for (Breeder aBreeder : breeders) {
+			if (aBreeder.getAddress().getId().compareTo(address.getId()) == 0) {
+        aBreeder.setAddress(null);
+        sessionFactory.getCurrentSession().update(aBreeder);
+			}
+    }
+
+    for (Zoo aZoo : zoos) {
+			if (aZoo.getAddress().getId().compareTo(address.getId()) == 0) {
+        aZoo.setAddress(null);
+        sessionFactory.getCurrentSession().update(aZoo);
+			}
+    }
+
+    sessionFactory.getCurrentSession().delete(address);
   }
 
 }

@@ -18,9 +18,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 
 import domain.Animal;
+import domain.Address;;
 import domain.Breeder;
 import domain.Zoo;
-import service.SellingMangerHibernateImpl;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/beans.xml" })
@@ -31,6 +31,7 @@ public class SellingManagerTest {
 	@Autowired
 	SellingManagerInterface sellingManager;
 
+  // ZOOS FOR TESTING
 	private final String ZOO_NAME_1 = "Gdański Ogród Zoologiczny";
 	private final String ZOO_OWNER_1 = "Ferdynand Gdański";
 
@@ -40,6 +41,7 @@ public class SellingManagerTest {
   private final String ZOO_NAME_3 = "Sosnowski Ogród Zoologiczny";
   private final String ZOO_OWNER_3 = "Marcin Sosnowski";
 
+  // ANIMALS FOR TESTING
 	private final String ANIMAL_SPECIES_1 = "Słoń";
 	private final String ANIMAL_NAME_1 = "Franciszek";
 
@@ -49,6 +51,7 @@ public class SellingManagerTest {
   private final String ANIMAL_SPECIES_3 = "Krokodyl";
   private final String ANIMAL_NAME_3 = "Ryszard";
 
+  // BREEDERS FOR TESTING
   private final String BREEDER_FIRSTNAME_1 = "Bronisław";
   private final String BREEDER_BREEDINGSPECIES_1 = ANIMAL_SPECIES_1;
 
@@ -57,6 +60,25 @@ public class SellingManagerTest {
 
   private final String BREEDER_FIRSTNAME_3 = "Tadeusz";
   private final String BREEDER_BREEDINGSPECIES_3 = ANIMAL_SPECIES_3;
+
+  // ADDRESSES FOR TESTING
+  private final String ADDRESS_STREET_1 = "Oliwska";
+  private final int ADDRESS_NUMBER_1 = 4;
+  private final String ADDRESS_POSTALCODE_1 = "17-141";
+  private final String ADDRESS_CITY_1 = "Gdańsk";
+  private final String ADDRESS_COUNTRY_1 = "Polska";
+
+  private final String ADDRESS_STREET_2 = "Białowieska";
+  private final int ADDRESS_NUMBER_2 = 7;
+  private final String ADDRESS_POSTALCODE_2 = "24-547";
+  private final String ADDRESS_CITY_2 = "Białowieża";
+  private final String ADDRESS_COUNTRY_2 = "Polska";
+
+  private final String ADDRESS_STREET_3 = "Sosnowska";
+  private final int ADDRESS_NUMBER_3 = 13;
+  private final String ADDRESS_POSTALCODE_3 = "93-215";
+  private final String ADDRESS_CITY_3 = "Sosnowiec";
+  private final String ADDRESS_COUNTRY_3 = "Polska";
 
   // Font style - color, bold and reset (console)
   public static final String ANSI_RESET = "\u001B[0m";
@@ -232,6 +254,45 @@ public class SellingManagerTest {
 	}
 
   @Test
+  public void addAddressCheck() {
+
+    testInfo("Add Address Check");
+
+    Address address = new Address();
+    address.setStreet(ADDRESS_STREET_1);
+    address.setNumber(ADDRESS_NUMBER_1);
+    address.setPostalCode(ADDRESS_POSTALCODE_1);
+    address.setCity(ADDRESS_CITY_1);
+    address.setCountry(ADDRESS_COUNTRY_1);
+		// ... other properties here
+
+    sellingManager.addAddress(address);
+
+    List<Address> addresses = sellingManager.getAllAddresses();
+
+    // assertEquals(1, addresses.size());
+    // testInfo("Addresses count", 1, addresses.size());
+
+    Address retrievedAddress = addresses.get(0);
+
+    assertEquals(ADDRESS_STREET_1, retrievedAddress.getStreet());
+    testInfo("Address street", ADDRESS_STREET_1, retrievedAddress.getStreet());
+
+    assertEquals(ADDRESS_NUMBER_1, retrievedAddress.getNumber());
+    testInfo("Address number", ADDRESS_NUMBER_1, retrievedAddress.getNumber());
+
+    assertEquals(ADDRESS_POSTALCODE_1, retrievedAddress.getPostalCode());
+    testInfo("Address postal code", ADDRESS_POSTALCODE_1, retrievedAddress.getPostalCode());
+
+    assertEquals(ADDRESS_CITY_1, retrievedAddress.getCity());
+    testInfo("Address city", ADDRESS_CITY_1, retrievedAddress.getCity());
+
+    assertEquals(ADDRESS_COUNTRY_1, retrievedAddress.getCountry());
+    testInfo("Address country", ADDRESS_COUNTRY_1, retrievedAddress.getCountry());
+
+  }
+
+  @Test
   public void updateZooCheck() {
 
     testInfo("Update Zoo Check");
@@ -323,6 +384,50 @@ public class SellingManagerTest {
 
     assertEquals(BREEDER_BREEDINGSPECIES_2, retrievedBreeder.getBreedingSpecies());
     testInfo("Breeder new breeding species", BREEDER_BREEDINGSPECIES_2, retrievedBreeder.getBreedingSpecies());
+
+  }
+
+  @Test
+  public void updateAddressCheck() {
+
+    testInfo("Update Address Check");
+
+    Address address1 = new Address();
+    address1.setStreet(ADDRESS_STREET_1);
+    address1.setNumber(ADDRESS_NUMBER_1);
+    address1.setPostalCode(ADDRESS_POSTALCODE_1);
+    address1.setCity(ADDRESS_CITY_1);
+    address1.setCountry(ADDRESS_COUNTRY_1);
+		// ... other properties here
+
+    Address address2 = new Address();
+    address2.setStreet(ADDRESS_STREET_2);
+    address2.setNumber(ADDRESS_NUMBER_2);
+    address2.setPostalCode(ADDRESS_POSTALCODE_2);
+    address2.setCity(ADDRESS_CITY_1);
+    address2.setCountry(ADDRESS_COUNTRY_1);
+    // ... other properties here
+
+    sellingManager.addAddress(address1);
+    sellingManager.updateAddress(address1, address2);
+
+    List<Address> addresses = sellingManager.getAllAddresses();
+    Address retrievedAddress = addresses.get(0);
+
+    assertEquals(ADDRESS_STREET_2, retrievedAddress.getStreet());
+    testInfo("Address new street", ADDRESS_STREET_2, retrievedAddress.getStreet());
+
+    assertEquals(ADDRESS_NUMBER_2, retrievedAddress.getNumber());
+    testInfo("Address new number", ADDRESS_NUMBER_2, retrievedAddress.getNumber());
+
+    assertEquals(ADDRESS_POSTALCODE_2, retrievedAddress.getPostalCode());
+    testInfo("Address new postal code", ADDRESS_POSTALCODE_2, retrievedAddress.getPostalCode());
+
+    assertEquals(ADDRESS_CITY_1, retrievedAddress.getCity());
+    testInfo("Address old city", ADDRESS_CITY_1, retrievedAddress.getCity());
+
+    assertEquals(ADDRESS_COUNTRY_1, retrievedAddress.getCountry());
+    testInfo("Address old country", ADDRESS_COUNTRY_1, retrievedAddress.getCountry());
 
   }
 
@@ -420,7 +525,8 @@ public class SellingManagerTest {
 
   }
 
-  @Test public void deleteBreederCheck() {
+  @Test
+  public void deleteBreederCheck() {
 
     testInfo("Delete Breeder Check");
 
@@ -439,6 +545,32 @@ public class SellingManagerTest {
 
     assertEquals(0, retrievedBreeders.size());
     testInfo("Breeders after delete count", 0, retrievedBreeders.size());
+
+  }
+
+  @Test
+  public void deleteAddressCheck() {
+
+    testInfo("Delete Address Check");
+
+    Address address = new Address();
+    address.setStreet(ADDRESS_STREET_3);
+    address.setNumber(ADDRESS_NUMBER_3);
+    address.setPostalCode(ADDRESS_POSTALCODE_3);
+    address.setCity(ADDRESS_CITY_3);
+    address.setCountry(ADDRESS_COUNTRY_3);
+    sellingManager.addAddress(address);
+
+    List<Address> retrievedAddresses = sellingManager.getAllAddresses();
+
+    assertEquals(1, retrievedAddresses.size());
+    testInfo("Adresses before delete count", 1, retrievedAddresses.size());
+
+    sellingManager.deleteAddress(address);
+    retrievedAddresses = sellingManager.getAllAddresses();
+
+    assertEquals(0, retrievedAddresses.size());
+    testInfo("Adresses after delete count", 0, retrievedAddresses.size());
 
   }
 
