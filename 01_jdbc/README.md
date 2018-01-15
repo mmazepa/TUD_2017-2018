@@ -8,6 +8,6 @@ Dane studenta
 
 Dane projektu
 
-| Projekt      | Dziedzina | Technologia |
-|--------------|-----------|-------------|
-| 1 (Pierwszy) | Zwierzęta | JDBC        |
+| Projekt      | Technologia | Przedmiot                                     | Dziedzina |
+|--------------|-------------|-----------------------------------------------|-----------|
+| 1 (Pierwszy) | JDBC        | Technologie utrwalania danych dla języka Java | Zwierzęta |

@@ -8,6 +8,6 @@ Dane studenta
 
 Dane projektu
 
-| Projekt   | Dziedzina | Technologia |
-|-----------|-----------|-------------|
-| 2 (Drugi) | Zwierzęta | Spring      |
+| Projekt   | Technologia | Przedmiot                                     | Dziedzina |
+|-----------|-------------|-----------------------------------------------|-----------|
+| 2 (Drugi) | Spring      | Technologie utrwalania danych dla języka Java | Zwierzęta |
