@@ -31,54 +31,72 @@ public class SellingManagerTest {
 	@Autowired
 	SellingManagerInterface sellingManager;
 
-  // ZOOS FOR TESTING
-	private final String ZOO_NAME_1 = "Gdański Ogród Zoologiczny";
-	private final String ZOO_OWNER_1 = "Ferdynand Gdański";
-
-  private final String ZOO_NAME_2 = "Białowieski Ogród Zoologiczny";
-  private final String ZOO_OWNER_2 = "Kazimierz Białowieski";
-
-  private final String ZOO_NAME_3 = "Sosnowski Ogród Zoologiczny";
-  private final String ZOO_OWNER_3 = "Marcin Sosnowski";
-
-  // ANIMALS FOR TESTING
-	private final String ANIMAL_SPECIES_1 = "Słoń";
-	private final String ANIMAL_NAME_1 = "Franciszek";
-
-  private final String ANIMAL_SPECIES_2 = "Lew";
-  private final String ANIMAL_NAME_2 = "Stanisław";
-
-  private final String ANIMAL_SPECIES_3 = "Krokodyl";
-  private final String ANIMAL_NAME_3 = "Ryszard";
-
-  // BREEDERS FOR TESTING
-  private final String BREEDER_FIRSTNAME_1 = "Bronisław";
-  private final String BREEDER_BREEDINGSPECIES_1 = ANIMAL_SPECIES_1;
-
-  private final String BREEDER_FIRSTNAME_2 = "Mieczysław";
-  private final String BREEDER_BREEDINGSPECIES_2 = ANIMAL_SPECIES_2;
-
-  private final String BREEDER_FIRSTNAME_3 = "Tadeusz";
-  private final String BREEDER_BREEDINGSPECIES_3 = ANIMAL_SPECIES_3;
-
   // ADDRESSES FOR TESTING
   private final String ADDRESS_STREET_1 = "Oliwska";
   private final int ADDRESS_NUMBER_1 = 4;
   private final String ADDRESS_POSTALCODE_1 = "17-141";
   private final String ADDRESS_CITY_1 = "Gdańsk";
   private final String ADDRESS_COUNTRY_1 = "Polska";
+  private final Address ADDRESS_1 = new Address(ADDRESS_STREET_1, ADDRESS_NUMBER_1,
+    ADDRESS_POSTALCODE_1, ADDRESS_CITY_1, ADDRESS_COUNTRY_1);
 
   private final String ADDRESS_STREET_2 = "Białowieska";
   private final int ADDRESS_NUMBER_2 = 7;
   private final String ADDRESS_POSTALCODE_2 = "24-547";
   private final String ADDRESS_CITY_2 = "Białowieża";
   private final String ADDRESS_COUNTRY_2 = "Polska";
+  private final Address ADDRESS_2 = new Address(ADDRESS_STREET_2, ADDRESS_NUMBER_2,
+    ADDRESS_POSTALCODE_2, ADDRESS_CITY_2, ADDRESS_COUNTRY_2);
 
   private final String ADDRESS_STREET_3 = "Sosnowska";
   private final int ADDRESS_NUMBER_3 = 13;
   private final String ADDRESS_POSTALCODE_3 = "93-215";
   private final String ADDRESS_CITY_3 = "Sosnowiec";
   private final String ADDRESS_COUNTRY_3 = "Polska";
+  private final Address ADDRESS_3 = new Address(ADDRESS_STREET_3, ADDRESS_NUMBER_3,
+    ADDRESS_POSTALCODE_3, ADDRESS_CITY_3, ADDRESS_COUNTRY_3);
+
+  // ZOOS FOR TESTING
+	private final String ZOO_NAME_1 = "Gdański Ogród Zoologiczny";
+	private final String ZOO_OWNER_1 = "Ferdynand Gdański";
+  private final Zoo ZOO_1 = new Zoo(ZOO_NAME_1, ZOO_OWNER_1, ADDRESS_1);
+
+  private final String ZOO_NAME_2 = "Białowieski Ogród Zoologiczny";
+  private final String ZOO_OWNER_2 = "Kazimierz Białowieski";
+  private final Zoo ZOO_2 = new Zoo(ZOO_NAME_2, ZOO_OWNER_2, ADDRESS_2);
+
+  private final String ZOO_NAME_3 = "Sosnowski Ogród Zoologiczny";
+  private final String ZOO_OWNER_3 = "Marcin Sosnowski";
+  private final Zoo ZOO_3 = new Zoo(ZOO_NAME_3, ZOO_OWNER_3, ADDRESS_3);
+
+  // BREEDERS FOR TESTING
+  private final String BREEDER_FIRSTNAME_1 = "Bronisław";
+  private final String BREEDER_BREEDINGSPECIES_1 = "Słoń";
+  private final Breeder BREEDER_1 = new Breeder(BREEDER_FIRSTNAME_1,
+    BREEDER_BREEDINGSPECIES_1, ADDRESS_1);
+
+  private final String BREEDER_FIRSTNAME_2 = "Mieczysław";
+  private final String BREEDER_BREEDINGSPECIES_2 = "Lew";
+  private final Breeder BREEDER_2 = new Breeder(BREEDER_FIRSTNAME_2,
+    BREEDER_BREEDINGSPECIES_2, ADDRESS_2);
+
+  private final String BREEDER_FIRSTNAME_3 = "Tadeusz";
+  private final String BREEDER_BREEDINGSPECIES_3 = "Krokodyl";
+  private final Breeder BREEDER_3 = new Breeder(BREEDER_FIRSTNAME_3,
+    BREEDER_BREEDINGSPECIES_3, ADDRESS_3);
+
+  // ANIMALS FOR TESTING
+	private final String ANIMAL_SPECIES_1 = BREEDER_BREEDINGSPECIES_1;
+	private final String ANIMAL_NAME_1 = "Franciszek";
+  private final Animal ANIMAL_1 = new Animal(ANIMAL_SPECIES_1, ANIMAL_NAME_1, BREEDER_1);
+
+  private final String ANIMAL_SPECIES_2 = BREEDER_BREEDINGSPECIES_2;
+  private final String ANIMAL_NAME_2 = "Stanisław";
+  private final Animal ANIMAL_2 = new Animal(ANIMAL_SPECIES_2, ANIMAL_NAME_2, BREEDER_2);
+
+  private final String ANIMAL_SPECIES_3 = BREEDER_BREEDINGSPECIES_3;
+  private final String ANIMAL_NAME_3 = "Ryszard";
+  private final Animal ANIMAL_3 = new Animal(ANIMAL_SPECIES_3, ANIMAL_NAME_3, BREEDER_3);
 
   // Font style - color, bold and reset (console)
   public static final String ANSI_RESET = "\u001B[0m";
@@ -91,57 +109,31 @@ public class SellingManagerTest {
     System.out.println(colorizeText(boldText("[TEST]:"), "white") + " " + colorizeText(testName, "white"));
   }
 
-  public static void testInfo(String testInfo, String data1, String data2) {
+  public static void testInfo(String testInfo, Object data1, Object data2) {
     String successInfo = colorizeText(boldText("[SUCCESS]:"), "blue") + " " + colorizeText(testInfo + " is correct.", "blue");
     String failureInfo = colorizeText(boldText("[FAILURE]:"), "red") + " " + colorizeText(testInfo + " is incorrect.", "red");
 
-    if (data1.equals(data2)) System.out.println(successInfo);
-    else System.out.println(failureInfo);
-  }
-
-  public static void testInfo(String testInfo, Boolean data1, Boolean data2) {
-    String successInfo = colorizeText(boldText("[SUCCESS]:"), "blue") + " " + colorizeText(testInfo + " is correct.", "blue");
-    String failureInfo = colorizeText(boldText("[FAILURE]:"), "red") + " " + colorizeText(testInfo + " is incorrect.", "red");
-
-    if (data1 == data2) System.out.println(successInfo);
-    else System.out.println(failureInfo);
-  }
-
-  public static void testInfo(String testInfo, int data1, int data2) {
-    String successInfo = colorizeText(boldText("[SUCCESS]:"), "blue") + " " + colorizeText(testInfo + " is correct.", "blue");
-    String failureInfo = colorizeText(boldText("[FAILURE]:"), "red") + " " + colorizeText(testInfo + " is incorrect.", "red");
-
-    if (data1 == data2) System.out.println(successInfo);
-    else System.out.println(failureInfo);
-  }
-
-  public static void testInfo(String testInfo, Breeder data1, Breeder data2) {
-    String successInfo = colorizeText(boldText("[SUCCESS]:"), "blue") + " " + colorizeText(testInfo + " is correct.", "blue");
-    String failureInfo = colorizeText(boldText("[FAILURE]:"), "red") + " " + colorizeText(testInfo + " is incorrect.", "red");
-
-    if (data1 == data2) System.out.println(successInfo);
-    else System.out.println(failureInfo);
-  }
-
-  public static void testInfo(String testInfo, Address data1, Address data2) {
-    String successInfo = colorizeText(boldText("[SUCCESS]:"), "blue") + " " + colorizeText(testInfo + " is correct.", "blue");
-    String failureInfo = colorizeText(boldText("[FAILURE]:"), "red") + " " + colorizeText(testInfo + " is incorrect.", "red");
-
-    if (data1 == data2) System.out.println(successInfo);
-    else System.out.println(failureInfo);
+    if (data1 instanceof String && data2 instanceof String) {
+      if (data1.equals(data2)) System.out.println(successInfo);
+      else System.out.println(failureInfo);
+    }
+    else {
+      if (data1 == data2) System.out.println(successInfo);
+      else System.out.println(failureInfo);
+    }
   }
 
   public static String colorizeText(String textToColorize, String colorName) {
-    if (colorName == "blue") {
-      return ANSI_BLUE + textToColorize + ANSI_RESET;
+    switch (colorName) {
+      case "blue":
+        return ANSI_BLUE + textToColorize + ANSI_RESET;
+      case "red":
+        return ANSI_RED + textToColorize + ANSI_RESET;
+      case "white":
+        return ANSI_WHITE + textToColorize + ANSI_RESET;
+      default:
+        return textToColorize;
     }
-    else if (colorName == "red") {
-      return ANSI_RED + textToColorize + ANSI_RESET;
-    }
-    else if (colorName == "white") {
-      return ANSI_WHITE + textToColorize + ANSI_RESET;
-    }
-    else return textToColorize;
   }
 
   public static String boldText(String textToBold) {
@@ -176,10 +168,8 @@ public class SellingManagerTest {
 
     testInfo("Add Zoo Check");
 
-    Address address = new Address(ADDRESS_STREET_1, ADDRESS_NUMBER_1, ADDRESS_POSTALCODE_1, ADDRESS_CITY_1, ADDRESS_COUNTRY_1);
-    sellingManager.addAddress(address);
-    Zoo zoo = new Zoo(ZOO_NAME_1, ZOO_OWNER_1, address);
-		sellingManager.addZoo(zoo);
+    sellingManager.addAddress(ADDRESS_1);
+		sellingManager.addZoo(ZOO_1);
 
 		Zoo retrievedZoo = sellingManager.findZooByOwner(ZOO_OWNER_1);
 
@@ -189,8 +179,8 @@ public class SellingManagerTest {
 		assertEquals(ZOO_OWNER_1, retrievedZoo.getOwner());
     testInfo("Zoo owner", ZOO_OWNER_1, retrievedZoo.getOwner());
 
-    assertEquals(address, retrievedZoo.getAddress());
-    testInfo("Zoo address", address, retrievedZoo.getAddress());
+    assertEquals(ADDRESS_1, retrievedZoo.getAddress());
+    testInfo("Zoo address", ADDRESS_1, retrievedZoo.getAddress());
 
 	}
 
@@ -199,12 +189,9 @@ public class SellingManagerTest {
 
     testInfo("Add Animal Check");
 
-    Address address = new Address(ADDRESS_STREET_1, ADDRESS_NUMBER_1, ADDRESS_POSTALCODE_1, ADDRESS_CITY_1, ADDRESS_COUNTRY_1);
-    sellingManager.addAddress(address);
-    Breeder breeder = new Breeder(BREEDER_FIRSTNAME_1, BREEDER_BREEDINGSPECIES_1, address);
-    sellingManager.addBreeder(breeder);
-    Animal animal = new Animal(ANIMAL_SPECIES_1, ANIMAL_NAME_1, breeder);
-		Long animalId = sellingManager.addNewAnimal(animal);
+    sellingManager.addAddress(ADDRESS_1);
+    sellingManager.addBreeder(BREEDER_1);
+		Long animalId = sellingManager.addNewAnimal(ANIMAL_1);
 
 		Animal retrievedAnimal = sellingManager.findAnimalById(animalId);
 
@@ -217,8 +204,8 @@ public class SellingManagerTest {
     assertEquals(false, retrievedAnimal.getSold());
     testInfo("Animal sold status", false, retrievedAnimal.getSold());
 
-    assertEquals(breeder, retrievedAnimal.getBreeder());
-    testInfo("Animal breeder", breeder, retrievedAnimal.getBreeder());
+    assertEquals(BREEDER_1, retrievedAnimal.getBreeder());
+    testInfo("Animal breeder", BREEDER_1, retrievedAnimal.getBreeder());
 
 	}
 
@@ -227,21 +214,19 @@ public class SellingManagerTest {
 
     testInfo("Add Breeder Check");
 
-    Address address = new Address(ADDRESS_STREET_2, ADDRESS_NUMBER_2, ADDRESS_POSTALCODE_2, ADDRESS_CITY_2, ADDRESS_COUNTRY_2);
-    sellingManager.addAddress(address);
-    Breeder breeder = new Breeder(BREEDER_FIRSTNAME_1, BREEDER_BREEDINGSPECIES_1, address);
-		sellingManager.addBreeder(breeder);
+    sellingManager.addAddress(ADDRESS_2);
+		sellingManager.addBreeder(BREEDER_2);
 
-		Breeder retrievedBreeder = sellingManager.findBreederByBreedingSpecies(BREEDER_BREEDINGSPECIES_1);
+		Breeder retrievedBreeder = sellingManager.findBreederByBreedingSpecies(BREEDER_BREEDINGSPECIES_2);
 
-		assertEquals(BREEDER_FIRSTNAME_1, retrievedBreeder.getFirstName());
-    testInfo("Breeder name", BREEDER_FIRSTNAME_1, retrievedBreeder.getFirstName());
+		assertEquals(BREEDER_FIRSTNAME_2, retrievedBreeder.getFirstName());
+    testInfo("Breeder name", BREEDER_FIRSTNAME_2, retrievedBreeder.getFirstName());
 
-		assertEquals(BREEDER_BREEDINGSPECIES_1, retrievedBreeder.getBreedingSpecies());
-    testInfo("Breeder breeding species", BREEDER_BREEDINGSPECIES_1, retrievedBreeder.getBreedingSpecies());
+		assertEquals(BREEDER_BREEDINGSPECIES_2, retrievedBreeder.getBreedingSpecies());
+    testInfo("Breeder breeding species", BREEDER_BREEDINGSPECIES_2, retrievedBreeder.getBreedingSpecies());
 
-    assertEquals(address, retrievedBreeder.getAddress());
-    testInfo("Breeder address", address, retrievedBreeder.getAddress());
+    assertEquals(ADDRESS_2, retrievedBreeder.getAddress());
+    testInfo("Breeder address", ADDRESS_2, retrievedBreeder.getAddress());
 
 	}
 
@@ -250,8 +235,7 @@ public class SellingManagerTest {
 
     testInfo("Add Address Check");
 
-    Address address = new Address(ADDRESS_STREET_1, ADDRESS_NUMBER_1, ADDRESS_POSTALCODE_1, ADDRESS_CITY_1, ADDRESS_COUNTRY_1);
-    sellingManager.addAddress(address);
+    sellingManager.addAddress(ADDRESS_1);
 
     List<Address> addresses = sellingManager.getAllAddresses();
     Address retrievedAddress = addresses.get(0);
@@ -278,15 +262,18 @@ public class SellingManagerTest {
 
     testInfo("Update Zoo Check");
 
-    Address address1 = new Address(ADDRESS_STREET_1, ADDRESS_NUMBER_1, ADDRESS_POSTALCODE_1, ADDRESS_CITY_1, ADDRESS_COUNTRY_1);
-    sellingManager.addAddress(address1);
-    Zoo zoo1 = new Zoo(ZOO_NAME_1, ZOO_OWNER_1, address1);
-    sellingManager.addZoo(zoo1);
+    sellingManager.addAddress(ADDRESS_1);
+    sellingManager.addZoo(ZOO_1);
 
-    Address address2 = new Address(address1.getStreet(), address1.getNumber(), address1.getPostalCode(), ADDRESS_CITY_2, ADDRESS_COUNTRY_2);
-    Zoo zoo2 = new Zoo(zoo1.getName(), ZOO_OWNER_2, address2);
+    Address newAddress = ADDRESS_1;
+    newAddress.setCity(ADDRESS_CITY_2);
+    newAddress.setCountry(ADDRESS_COUNTRY_2);
 
-    sellingManager.updateZoo(zoo1, zoo2);
+    Zoo newZoo = ZOO_2;
+    newZoo.setName(ZOO_NAME_1);
+    newZoo.setAddress(newAddress);
+
+    sellingManager.updateZoo(ZOO_1, newZoo);
 
     Zoo retrievedZoo = sellingManager.findZooByOwner(ZOO_OWNER_2);
 
@@ -296,8 +283,8 @@ public class SellingManagerTest {
 		assertEquals(ZOO_OWNER_2, retrievedZoo.getOwner());
     testInfo("Zoo new owner", ZOO_OWNER_2, retrievedZoo.getOwner());
 
-    assertEquals(address2, retrievedZoo.getAddress());
-    testInfo("Zoo new address", address2, retrievedZoo.getAddress());
+    assertEquals(newAddress, retrievedZoo.getAddress());
+    testInfo("Zoo new address", newAddress, retrievedZoo.getAddress());
 
   }
 
@@ -306,18 +293,15 @@ public class SellingManagerTest {
 
     testInfo("Update Animal Check");
 
-    Address address = new Address(ADDRESS_STREET_1, ADDRESS_NUMBER_1, ADDRESS_POSTALCODE_1, ADDRESS_CITY_1, ADDRESS_COUNTRY_1);
-    sellingManager.addAddress(address);
-    Breeder breeder = new Breeder(BREEDER_FIRSTNAME_1, BREEDER_BREEDINGSPECIES_1, address);
-    sellingManager.addBreeder(breeder);
-    Animal animal1 = new Animal(ANIMAL_SPECIES_1, ANIMAL_NAME_1, breeder);
-    Long animalId = sellingManager.addNewAnimal(animal1);
+    sellingManager.addAddress(ADDRESS_1);
+    sellingManager.addBreeder(BREEDER_1);
+    Long animalId = sellingManager.addNewAnimal(ANIMAL_1);
 
-    Animal animal2 = new Animal();
-    animal2 = animal1;
-    animal2.setName(ANIMAL_NAME_2);
+    Animal newAnimal = new Animal();
+    newAnimal = ANIMAL_1;
+    newAnimal.setName(ANIMAL_NAME_2);
 
-    sellingManager.updateAnimal(animal1, animal2);
+    sellingManager.updateAnimal(ANIMAL_1, newAnimal);
 
 		Animal retrievedAnimal = sellingManager.findAnimalById(animalId);
 
@@ -330,8 +314,8 @@ public class SellingManagerTest {
     assertEquals(false, retrievedAnimal.getSold());
     testInfo("Animal old sold status", false, retrievedAnimal.getSold());
 
-    assertEquals(breeder, retrievedAnimal.getBreeder());
-    testInfo("Animal old breeder", breeder, retrievedAnimal.getBreeder());
+    assertEquals(BREEDER_1, retrievedAnimal.getBreeder());
+    testInfo("Animal old breeder", BREEDER_1, retrievedAnimal.getBreeder());
 
   }
 
@@ -340,23 +324,20 @@ public class SellingManagerTest {
 
     testInfo("Update Breeder Check");
 
-    Address address1 = new Address(ADDRESS_STREET_1, ADDRESS_NUMBER_1, ADDRESS_POSTALCODE_1, ADDRESS_CITY_1, ADDRESS_COUNTRY_1);
-    sellingManager.addAddress(address1);
+    sellingManager.addAddress(ADDRESS_1);
+    sellingManager.addBreeder(BREEDER_1);
 
-    Breeder breeder1 = new Breeder(BREEDER_FIRSTNAME_1, BREEDER_BREEDINGSPECIES_1, address1);
-    sellingManager.addBreeder(breeder1);
+    Address newAddress = new Address();
+    newAddress = ADDRESS_1;
+    newAddress.setNumber(ADDRESS_NUMBER_3);
+    newAddress.setCity(ADDRESS_CITY_3);
 
-    Address address2 = new Address();
-    address2 = address1;
-    address2.setNumber(ADDRESS_NUMBER_3);
-    address2.setCity(ADDRESS_CITY_3);
+    Breeder newBreeder = new Breeder();
+    newBreeder = BREEDER_1;
+    newBreeder.setBreedingSpecies(BREEDER_BREEDINGSPECIES_2);
+    newBreeder.setAddress(newAddress);
 
-    Breeder breeder2 = new Breeder();
-    breeder2 = breeder1;
-    breeder2.setBreedingSpecies(BREEDER_BREEDINGSPECIES_2);
-    breeder2.setAddress(address2);
-
-    sellingManager.updateBreeder(breeder1, breeder2);
+    sellingManager.updateBreeder(BREEDER_1, newBreeder);
 
     Breeder retrievedBreeder = sellingManager.findBreederByBreedingSpecies(BREEDER_BREEDINGSPECIES_2);
 
@@ -366,8 +347,8 @@ public class SellingManagerTest {
     assertEquals(BREEDER_BREEDINGSPECIES_2, retrievedBreeder.getBreedingSpecies());
     testInfo("Breeder new breeding species", BREEDER_BREEDINGSPECIES_2, retrievedBreeder.getBreedingSpecies());
 
-    assertEquals(address2, retrievedBreeder.getAddress());
-    testInfo("Breeder new address", address2, retrievedBreeder.getAddress());
+    assertEquals(newAddress, retrievedBreeder.getAddress());
+    testInfo("Breeder new address", newAddress, retrievedBreeder.getAddress());
 
   }
 
@@ -376,16 +357,14 @@ public class SellingManagerTest {
 
     testInfo("Update Address Check");
 
-    Address address1 = new Address(ADDRESS_STREET_1, ADDRESS_NUMBER_1, ADDRESS_POSTALCODE_1, ADDRESS_CITY_1, ADDRESS_COUNTRY_1);
-    sellingManager.addAddress(address1);
+    sellingManager.addAddress(ADDRESS_1);
 
-    Address address2 = new Address();
-    address2 = address1;
-    address2.setStreet(ADDRESS_STREET_2);
-    address2.setNumber(ADDRESS_NUMBER_2);
-    address2.setPostalCode(ADDRESS_POSTALCODE_2);
+    Address newAddress = new Address();
+    newAddress = ADDRESS_2;
+    newAddress.setCity(ADDRESS_CITY_1);
+    newAddress.setCountry(ADDRESS_COUNTRY_1);
 
-    sellingManager.updateAddress(address1, address2);
+    sellingManager.updateAddress(ADDRESS_1, newAddress);
 
     List<Address> addresses = sellingManager.getAllAddresses();
     Address retrievedAddress = addresses.get(0);
@@ -412,21 +391,14 @@ public class SellingManagerTest {
 
     testInfo("Sell Animal Check");
 
-    Address address = new Address(ADDRESS_STREET_2, ADDRESS_NUMBER_2, ADDRESS_POSTALCODE_2, ADDRESS_CITY_2, ADDRESS_COUNTRY_2);
-    sellingManager.addAddress(address);
-		Zoo zoo = new Zoo(ZOO_NAME_2, ZOO_OWNER_2, address);
-		sellingManager.addZoo(zoo);
+    sellingManager.addAddress(ADDRESS_2);
+		sellingManager.addZoo(ZOO_2);
 
 		Zoo retrievedZoo = sellingManager.findZooByOwner(ZOO_OWNER_2);
 
-    Address address2 = new Address(ADDRESS_STREET_3, ADDRESS_NUMBER_3, ADDRESS_POSTALCODE_3, ADDRESS_CITY_3, ADDRESS_COUNTRY_3);
-    sellingManager.addAddress(address2);
-
-    Breeder breeder = new Breeder(BREEDER_FIRSTNAME_2, BREEDER_BREEDINGSPECIES_2, address2);
-    sellingManager.addBreeder(breeder);
-
-    Animal animal = new Animal(ANIMAL_SPECIES_2, ANIMAL_NAME_2, breeder);
-		Long animalId = sellingManager.addNewAnimal(animal);
+    sellingManager.addAddress(ADDRESS_3);
+    sellingManager.addBreeder(BREEDER_2);
+		Long animalId = sellingManager.addNewAnimal(ANIMAL_2);
 
 		sellingManager.sellAnimal(retrievedZoo.getId(), animalId);
 
@@ -444,8 +416,8 @@ public class SellingManagerTest {
     assertEquals(true, ownedAnimals.get(0).getSold());
     testInfo("Owned animal sold status", true, ownedAnimals.get(0).getSold());
 
-    assertEquals(breeder, ownedAnimals.get(0).getBreeder());
-    testInfo("Owned animal breeder", breeder, ownedAnimals.get(0).getBreeder());
+    assertEquals(BREEDER_2, ownedAnimals.get(0).getBreeder());
+    testInfo("Owned animal breeder", BREEDER_2, ownedAnimals.get(0).getBreeder());
 
 	}
 
@@ -454,22 +426,13 @@ public class SellingManagerTest {
 
     testInfo("Dispose Animal Check");
 
-    Address address1 = new Address(ADDRESS_STREET_3, ADDRESS_NUMBER_3, ADDRESS_POSTALCODE_3, ADDRESS_CITY_3, ADDRESS_COUNTRY_3);
-    sellingManager.addAddress(address1);
+    sellingManager.addAddress(ADDRESS_3);
+    sellingManager.addBreeder(BREEDER_3);
+    sellingManager.addNewAnimal(ANIMAL_3);
+    sellingManager.addAddress(ADDRESS_1);
+    sellingManager.addZoo(ZOO_3);
 
-    Breeder breeder = new Breeder(BREEDER_FIRSTNAME_3, BREEDER_BREEDINGSPECIES_3, address1);
-    sellingManager.addBreeder(breeder);
-
-    Animal animal = new Animal(ANIMAL_SPECIES_3, ANIMAL_NAME_3, breeder);
-    sellingManager.addNewAnimal(animal);
-
-    Address address2 = new Address(ADDRESS_STREET_1, ADDRESS_NUMBER_1, ADDRESS_POSTALCODE_1, ADDRESS_CITY_1, ADDRESS_COUNTRY_1);
-    sellingManager.addAddress(address2);
-
-		Zoo zoo = new Zoo(ZOO_NAME_3, ZOO_OWNER_3, address2);
-    sellingManager.addZoo(zoo);
-
-    sellingManager.sellAnimal(zoo.getId(), animal.getId());
+    sellingManager.sellAnimal(ZOO_3.getId(), ANIMAL_3.getId());
 
     Zoo retrievedZoo = sellingManager.findZooByOwner(ZOO_OWNER_3);
     List<Animal> ownedAnimals = sellingManager.getOwnedAnimals(retrievedZoo);
@@ -477,7 +440,7 @@ public class SellingManagerTest {
     assertEquals(1, ownedAnimals.size());
     testInfo("Old owned animals count", 1, ownedAnimals.size());
 
-    sellingManager.disposeAnimal(zoo, animal);
+    sellingManager.disposeAnimal(ZOO_3, ANIMAL_3);
 
     retrievedZoo = sellingManager.findZooByOwner(ZOO_OWNER_3);
     ownedAnimals = sellingManager.getOwnedAnimals(retrievedZoo);
@@ -492,15 +455,15 @@ public class SellingManagerTest {
 
     testInfo("Delete Zoo Check");
 
-    Zoo zoo = new Zoo(ZOO_NAME_3, ZOO_OWNER_3, null);
-    sellingManager.addZoo(zoo);
+    sellingManager.addAddress(ADDRESS_3);
+    sellingManager.addZoo(ZOO_3);
 
     List<Zoo> retrievedZoos = sellingManager.getAllZoos();
 
     assertEquals(1, retrievedZoos.size());
     testInfo("Zoos before delete count", 1, retrievedZoos.size());
 
-    sellingManager.deleteZoo(zoo);
+    sellingManager.deleteZoo(ZOO_3);
     retrievedZoos = sellingManager.getAllZoos();
 
     assertEquals(0, retrievedZoos.size());
@@ -513,22 +476,19 @@ public class SellingManagerTest {
 
     testInfo("Delete Animal Check");
 
-    Address address1 = new Address(ADDRESS_STREET_1, ADDRESS_NUMBER_1, ADDRESS_POSTALCODE_1, ADDRESS_CITY_1, ADDRESS_COUNTRY_1);
-    sellingManager.addAddress(address1);
+    sellingManager.addAddress(ADDRESS_1);
+    sellingManager.addZoo(ZOO_1);
+    sellingManager.addAddress(ADDRESS_2);
 
-    Zoo zoo = new Zoo(ZOO_NAME_1, ZOO_OWNER_1, address1);
-    sellingManager.addZoo(zoo);
-
-    Address address2 = new Address(ADDRESS_STREET_2, ADDRESS_NUMBER_2, ADDRESS_POSTALCODE_2, ADDRESS_CITY_2, ADDRESS_COUNTRY_2);
-    sellingManager.addAddress(address2);
-
-    Breeder breeder = new Breeder(BREEDER_FIRSTNAME_1, BREEDER_BREEDINGSPECIES_1, address2);
+    Breeder breeder = BREEDER_1;
+    breeder.setAddress(ADDRESS_2);
     sellingManager.addBreeder(breeder);
 
-    Animal animal = new Animal(ANIMAL_SPECIES_1, ANIMAL_NAME_1, breeder);
+    Animal animal = ANIMAL_1;
+    animal.setBreeder(breeder);
     sellingManager.addNewAnimal(animal);
 
-    sellingManager.sellAnimal(zoo.getId(), animal.getId());
+    sellingManager.sellAnimal(ZOO_1.getId(), animal.getId());
 
     List<Animal> retrievedAnimals = sellingManager.getAllAnimals();
     Animal retrievedAnimal = retrievedAnimals.get(0);
@@ -550,18 +510,15 @@ public class SellingManagerTest {
 
     testInfo("Delete Breeder Check");
 
-    Address address = new Address(ADDRESS_STREET_3, ADDRESS_NUMBER_3, ADDRESS_POSTALCODE_3, ADDRESS_CITY_3, ADDRESS_COUNTRY_3);
-    sellingManager.addAddress(address);
-
-    Breeder breeder = new Breeder(BREEDER_FIRSTNAME_3, BREEDER_BREEDINGSPECIES_3, address);
-    sellingManager.addBreeder(breeder);
+    sellingManager.addAddress(ADDRESS_3);
+    sellingManager.addBreeder(BREEDER_3);
 
     List<Breeder> retrievedBreeders = sellingManager.getAllBreeders();
 
     assertEquals(1, retrievedBreeders.size());
     testInfo("Breeders before delete count", 1, retrievedBreeders.size());
 
-    sellingManager.deleteBreeder(breeder);
+    sellingManager.deleteBreeder(BREEDER_3);
     retrievedBreeders = sellingManager.getAllBreeders();
 
     assertEquals(0, retrievedBreeders.size());
@@ -574,15 +531,14 @@ public class SellingManagerTest {
 
     testInfo("Delete Address Check");
 
-    Address address = new Address(ADDRESS_STREET_3, ADDRESS_NUMBER_3, ADDRESS_POSTALCODE_3, ADDRESS_CITY_3, ADDRESS_COUNTRY_3);
-    sellingManager.addAddress(address);
+    sellingManager.addAddress(ADDRESS_3);
 
     List<Address> retrievedAddresses = sellingManager.getAllAddresses();
 
     assertEquals(1, retrievedAddresses.size());
     testInfo("Adresses before delete count", 1, retrievedAddresses.size());
 
-    sellingManager.deleteAddress(address);
+    sellingManager.deleteAddress(ADDRESS_3);
     retrievedAddresses = sellingManager.getAllAddresses();
 
     assertEquals(0, retrievedAddresses.size());
