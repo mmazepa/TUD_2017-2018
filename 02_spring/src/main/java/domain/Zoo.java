@@ -74,7 +74,6 @@ public class Zoo {
 		this.creationDate = creationDate;
 	}
 
-	// Be careful here, both with lazy and eager fetch type
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	public List<Animal> getAnimals() {
 		return animals;

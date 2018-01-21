@@ -47,7 +47,6 @@ public class SellingMangerHibernateImpl implements SellingManagerInterface {
 	public void deleteZoo(Zoo zoo) {
 		zoo = (Zoo) sessionFactory.getCurrentSession().get(Zoo.class, zoo.getId());
 
-		// lazy loading here
 		for (Animal animal : zoo.getAnimals()) {
 			animal.setSold(false);
 			sessionFactory.getCurrentSession().update(animal);
@@ -59,7 +58,6 @@ public class SellingMangerHibernateImpl implements SellingManagerInterface {
 	public List<Animal> getOwnedAnimals(Zoo zoo) {
 		zoo = (Zoo) sessionFactory.getCurrentSession().get(Zoo.class, zoo.getId());
 
-		// lazy loading here - try this code without (shallow) copying
 		List<Animal> animals = new ArrayList<Animal>(zoo.getAnimals());
 		return animals;
 	}
@@ -137,7 +135,7 @@ public class SellingMangerHibernateImpl implements SellingManagerInterface {
 		animal = (Animal) sessionFactory.getCurrentSession().get(Animal.class, animal.getId());
 
 		Animal toRemove = null;
-		// lazy loading here (zoo.getAnimals)
+
 		for (Animal anAnimal : zoo.getAnimals())
 			if (anAnimal.getId().compareTo(animal.getId()) == 0) {
 				toRemove = anAnimal;
