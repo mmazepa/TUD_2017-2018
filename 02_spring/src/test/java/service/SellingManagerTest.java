@@ -422,9 +422,9 @@ public class SellingManagerTest {
 	}
 
 	@Test
-	public void disposeAnimalCheck() {
+	public void unsellAnimalCheck() {
 
-    testInfo("Dispose Animal Check");
+    testInfo("Unsell Animal Check");
 
     sellingManager.addAddress(ADDRESS_3);
     sellingManager.addBreeder(BREEDER_3);
@@ -440,7 +440,7 @@ public class SellingManagerTest {
     assertEquals(1, ownedAnimals.size());
     testInfo("Old owned animals count", 1, ownedAnimals.size());
 
-    sellingManager.disposeAnimal(ZOO_3, ANIMAL_3);
+    sellingManager.unsellAnimal(ZOO_3, ANIMAL_3);
 
     retrievedZoo = sellingManager.findZooByOwner(ZOO_OWNER_3);
     ownedAnimals = sellingManager.getOwnedAnimals(retrievedZoo);

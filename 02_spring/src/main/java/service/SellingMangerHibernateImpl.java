@@ -119,7 +119,7 @@ public class SellingMangerHibernateImpl implements SellingManagerInterface {
     for (Zoo aZoo : zoos) {
       for (Animal anAnimal : aZoo.getAnimals()) {
         if (anAnimal.getId().compareTo(animal.getId()) == 0) {
-          disposeAnimal(aZoo, animal);
+          unsellAnimal(aZoo, animal);
           break;
         }
       }
@@ -129,7 +129,7 @@ public class SellingMangerHibernateImpl implements SellingManagerInterface {
   }
 
 	@Override
-	public void disposeAnimal(Zoo zoo, Animal animal) {
+	public void unsellAnimal(Zoo zoo, Animal animal) {
 
 		zoo = (Zoo) sessionFactory.getCurrentSession().get(Zoo.class, zoo.getId());
 		animal = (Animal) sessionFactory.getCurrentSession().get(Animal.class, animal.getId());
