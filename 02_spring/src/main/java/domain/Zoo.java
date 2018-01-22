@@ -17,8 +17,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="Zoo")
 @NamedQueries({
 	@NamedQuery(name = "zoo.all", query = "Select z from Zoo z"),
 	@NamedQuery(name = "zoo.byOwner", query = "Select z from Zoo z where z.owner = :owner")

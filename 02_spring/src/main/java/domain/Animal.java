@@ -9,8 +9,10 @@ import javax.persistence.NamedQuery;
 import javax.persistence.ManyToOne;
 import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="Animal")
 @NamedQueries({
     @NamedQuery(name = "animal.all", query = "Select a from Animal a"),
 		@NamedQuery(name = "animal.unsold", query = "Select a from Animal a where a.sold = false"),

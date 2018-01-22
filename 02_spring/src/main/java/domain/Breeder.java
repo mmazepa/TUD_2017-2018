@@ -9,8 +9,10 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="Breeder")
 @NamedQueries({
     @NamedQuery(name = "breeder.all", query = "Select b from Breeder b"),
     @NamedQuery(name = "breeder.bySpecies", query = "Select b from Breeder b where b.breedingSpecies = :breedingSpecies")

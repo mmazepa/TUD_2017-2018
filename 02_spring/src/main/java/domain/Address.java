@@ -6,8 +6,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="Address")
 @NamedQueries({
     @NamedQuery(name = "address.all", query = "Select a from Address a")
 })
