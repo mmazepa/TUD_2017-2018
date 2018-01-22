@@ -1,3 +1,3 @@
 #!/bin/sh
 
-java -cp ./db/hsqldb-2.2.4.jar org.hsqldb.util.DatabaseManagerSwing --url jdbc:hsqldb:hsql://localhost/workdb
+java -cp ./db/hsqldb.jar org.hsqldb.util.DatabaseManagerSwing --url jdbc:hsqldb:hsql://localhost/workdb
